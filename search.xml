@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/"/>
+      <url>/2023/01/10/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/</url>
+      
+        <content type="html"><![CDATA[<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p><strong>定义</strong>：缓存穿透指的是查询一个一定不存在的数据，会导致一直无法命中缓存，从而每次都直接查询数据库。</p><p><strong>解决方法</strong>：将空数据也存入缓存，并设置过期时间，防止持续占用内存。</p><h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p><strong>定义</strong>：如果大量缓存数据设置了相同的过期时间且同一时间存入缓存中，则必然会存在某一时间点有大量缓存数据过期失效的情况，如果这个时间点来了大量请求查询这些数据，则会导致缓存无法命中，数据库压力剧增。</p><p><strong>解决方法</strong>：给缓存数据设置一个范围内的随机过期时间，防止大量缓存数据同时失效。</p><h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p><strong>定义</strong>：超大并发访问一个刚好过期的key，此时由于缓存过期，所有请求的处理都会直接操作数据库。</p><p><strong>解决方法</strong>：在查缓存前加锁，获得结果后释放锁。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Redis/%E6%95%B4%E5%90%88SpringCache/"/>
+      <url>/2023/01/10/Redis/%E6%95%B4%E5%90%88SpringCache/</url>
+      
+        <content type="html"><![CDATA[<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1、引入依赖"><a href="#1、引入依赖" class="headerlink" title="1、引入依赖"></a>1、引入依赖</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">            <span class="string">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line">            <span class="string">&lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt;</span></span><br><span class="line">        <span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure><h3 id="2、配置文件中配置缓存类型为redis"><a href="#2、配置文件中配置缓存类型为redis" class="headerlink" title="2、配置文件中配置缓存类型为redis"></a>2、配置文件中配置缓存类型为redis</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.cache.type</span>=<span class="string">redis</span></span><br></pre></td></tr></table></figure><h3 id="3、开启缓存功能"><a href="#3、开启缓存功能" class="headerlink" title="3、开启缓存功能"></a>3、开启缓存功能</h3><p><strong><code>@EnableCaching</code></strong></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Redis/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
+      <url>/2023/01/10/Redis/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/</url>
+      
+        <content type="html"><![CDATA[<h2 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h2><h3 id="1、死锁"><a href="#1、死锁" class="headerlink" title="1、死锁"></a>1、死锁</h3><p><strong>说明</strong>：</p><p>某个客户端获取到锁后代码没执行完机器直接死机，导致锁没有释放，其它客户端也就无法获取到锁，从而造成死锁。</p><p><strong>解决办法</strong>：</p><p>给锁设置过期时间，即使锁没有被释放，也会自动过期。</p><p>Tips: SETNX的同时设置过期时间，保证 ”获取锁并设置过期时间“ 这一操作的原子性</p><h3 id="2、删除锁"><a href="#2、删除锁" class="headerlink" title="2、删除锁"></a>2、删除锁</h3><p><strong>说明</strong>：</p><p>某个客户端(简称A)代码执行流程很长，导致执行过程中锁就自动过期了，此时另一个客户端(简称B)拿到了锁，B执行过程中A执行完毕，开始删除锁，此时删除的是B的锁，导致B还没执行完就又有其他客户端拿到了锁，如此循环往复…</p><p><strong>解决办法</strong>：</p><p>在获取到锁时，将锁的value设置为一个独特的值(token)，例如UUID等，删除时再将锁当前的值与token比较，一致的话再进行删除。并且，”获取锁当前的值并进行比较再删除” 这一操作也必须是原子操作，要借助lua脚本来完成。</p><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> redis.call(<span class="string">&quot;get&quot;</span>,KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&quot;del&quot;</span>,KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><h2 id="使用时的注意事项"><a href="#使用时的注意事项" class="headerlink" title="使用时的注意事项"></a>使用时的注意事项</h2><h3 id="1、释放锁的代码需要写到finally块中"><a href="#1、释放锁的代码需要写到finally块中" class="headerlink" title="1、释放锁的代码需要写到finally块中"></a>1、释放锁的代码需要写到finally块中</h3><blockquote><p>防止程序运行时出现异常导致没有释放锁，此Tips同样适用于本地锁。</p></blockquote>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Redis/Redisson/"/>
+      <url>/2023/01/10/Redis/Redisson/</url>
+      
+        <content type="html"><![CDATA[<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><h3 id="1、锁的自动续期-WatchDog"><a href="#1、锁的自动续期-WatchDog" class="headerlink" title="1、锁的自动续期(WatchDog)"></a>1、锁的自动续期(WatchDog)</h3><p>当业务执行时间超长时，运行期间Redisson会自动给锁续上新的30s，不用担心业务还没执行完锁就自动过期的问题。</p><h3 id="2、不会发生死锁"><a href="#2、不会发生死锁" class="headerlink" title="2、不会发生死锁"></a>2、不会发生死锁</h3><p>当业务完成(异常终止，锁还没释放)时，即使不手动释放锁，因为不会自动续期了，所以锁一段时间后会自动过期，不会导致死锁。</p><h2 id="使用建议"><a href="#使用建议" class="headerlink" title="使用建议"></a>使用建议</h2><h3 id="1、显式指定过期时间"><a href="#1、显式指定过期时间" class="headerlink" title="1、显式指定过期时间"></a>1、显式指定过期时间</h3><blockquote><p>使用lock()方法时显式指定过期时间，省去自动续期操作</p></blockquote>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Redis/Java%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9/"/>
+      <url>/2023/01/10/Redis/Java%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9/</url>
+      
+        <content type="html"><![CDATA[<h3 id="1、将对象转为字符串再存入Redis"><a href="#1、将对象转为字符串再存入Redis" class="headerlink" title="1、将对象转为字符串再存入Redis"></a>1、将对象转为字符串再存入Redis</h3><p><strong>解释</strong>：转为字符串后，其它语言也可以解析存入的内容，如果只是存入序列化后的Java对象，那只有Java才能解析存入其中的内容。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Nginx/nginx%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7/"/>
+      <url>/2023/01/10/Nginx/nginx%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7/</url>
+      
+        <content type="html"><![CDATA[<p><strong>先上结论</strong>：在有多个配置文件匹配的情况下，nginx根据文件名决定配置文件的读取顺序，可通过文件名指定优先级</p><p><strong>踩坑场景</strong>：</p><p>nginx  cond.d 目录下有2个配置文件：default.conf、dbmall.conf，部分配置如下：</p><p>default.conf:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">listen 80;</span><br><span class="line">server_name localhost;</span><br></pre></td></tr></table></figure><p>dbmall.conf:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">listen 80;</span><br><span class="line">server_name dbmall.com;</span><br></pre></td></tr></table></figure><p><strong>坑</strong>：当我直接使用nginx服务器的ip访问时，请求仍然是根据dbmall.conf的配置处理的。</p><p><strong>原因</strong>：直接使用ip访问的情况下不匹配任何一个server_name，又因为dbmall 这个文件名的 排序 大于 default，所以使用dbmall的配置进行处理。</p><p><strong>解决方法</strong>：修改文件名，将 <code>default.conf</code>、<code>dbmall.conf</code> 改名为 <code>00-default.conf</code>、<code>01-dbmall.conf</code>，使<code>default</code> 的优先级大于 <code>dbmall</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Nginx/nginx%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/"/>
+      <url>/2023/01/10/Nginx/nginx%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<h1 id="CentOS7部署Nginx"><a href="#CentOS7部署Nginx" class="headerlink" title="CentOS7部署Nginx"></a><a href="https://www.cnblogs.com/wangyulong/p/7350189.html">CentOS7部署Nginx</a></h1><p>注：此文是根据前辈的博客和自己实际动手总结出来的，不喜勿喷</p><p>1、准备工作</p><p>Nginx的安装依赖于以下三个包，意思就是在安装Nginx之前首先必须安装一下的三个包，注意安装顺序如下：</p><p>　　1 SSL功能需要openssl库，直接通过yum安装: #yum install openssl</p><p>　　2 gzip模块需要zlib库，直接通过yum安装: #yum install zlib</p><p>　　3 rewrite模块需要pcre库，直接通过yum安装: #yum install pcre</p><p>这个是在这篇博文 <a href="http://www.cnblogs.com/hanyinglong/p/5102141.html">http://www.cnblogs.com/hanyinglong/p/5102141.html</a> 里面看到的，这三个不知道系统安装的时候是不是直接安装了</p><p>反正我是又重新安装一遍</p><p>2、安装Nginx依赖项和Nginx</p><p>　　1 使用yum安装nginx需要包括Nginx的库，安装Nginx的库</p><p>　　　　#rpm -Uvh <a href="http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm">http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</a></p><p>　　2 使用下面命令安装nginx</p><p>　　　　#yum install nginx</p><p>　　3 启动Nginx</p><p>　　　　#service nginx start</p><p>这个是在这篇博文 <a href="http://www.cnblogs.com/Robert-huge/p/6003934.html%E9%87%8C%E9%9D%A2%E7%9C%8B%E5%88%B0%E7%9A%84%EF%BC%8C%E6%88%91%E7%9B%B4%E6%8E%A5%E5%AE%89%E8%A3%85Nginx%E6%8A%A5%E9%94%99%E5%90%8E%E6%90%9C%E5%88%B0%E7%9A%84%EF%BC%8C%E7%94%A8%E6%AD%A4%E5%8D%9A%E4%B8%BB%E7%9A%84%E6%96%B9%E6%B3%95%E5%AE%89%E8%A3%85%E5%90%8E%E6%B2%A1%E6%9C%89%E5%87%BA%E9%94%99">http://www.cnblogs.com/Robert-huge/p/6003934.html里面看到的，我直接安装Nginx报错后搜到的，用此博主的方法安装后没有出错</a></p><p>3、直接浏览器访问localhost就会出现Nginx的欢迎界面表示你安装成功了，否则就是安装失败了</p><p>4、配置Nginx</p><p>CentOS安装Nginx后，安装在了 &#x2F;etc&#x2F;nginx&#x2F;目录下，你可以打开&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;default&#x2F;conf查看里面的配置，包括监听端口，域名和nginx访问的根目录</p><p>参考<a href="http://www.cnblogs.com/liscookie/p/4032928.html">http://www.cnblogs.com/liscookie/p/4032928.html</a> 这篇博文，我把nginx的访问目录移到了&#x2F;var&#x2F;www目录下</p><p>修改完配置文件后记得重启Nginx的服务 </p><p>#service nginx restart</p><p>然后在&#x2F;var&#x2F;www目录下新建一个index.html，直接用浏览器访问</p><p>localhost&#x2F;index.html 就可以直接按到你index.html文件的内容了</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location /images/ &#123;    </span><br><span class="line"></span><br><span class="line">root /opt/html/;</span><br><span class="line">    try_files $uri   $uri/  /images/default.gif; </span><br><span class="line">    &#125;</span><br><span class="line">比如 请求 127.0.0.1/images/test.gif 会依次查找：</span><br><span class="line">1.文件/opt/html/images/test.gif   </span><br><span class="line">2.文件夹 /opt/html/images/test.gif/下的index文件  </span><br><span class="line">3. 请求127.0.0.1/images/default.gif4.</span><br><span class="line">其他注意事项1.try-files 如果不写上 $uri/，当直接访问一个目录路径时，并不会去匹配目录下的索引页  即 访问127.0.0.1/images/ 不会去访问  127.0.0.1/images/index.html </span><br></pre></td></tr></table></figure><p>location 使用alias别名</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /test/ &#123;    </span><br><span class="line">alias /myfile/;</span><br><span class="line">    &#125;</span><br><span class="line">当访问 /test/1.txt 时会返回 /myfile/1.txt</span><br></pre></td></tr></table></figure><p>设置允许跨域访问</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location /test/ &#123;</span><br><span class="line">add_header Access-Control-Allow-Origin *;</span><br><span class="line">    add_header Access-Control-Allow-Methods *;</span><br><span class="line">    add_header Access-Control-Allow-Headers *;</span><br><span class="line">alias /myfile/;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/MySQL/%E5%AD%98%E5%9C%A8%E6%97%B6%E4%B8%8D%E6%93%8D%E4%BD%9C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%88%99%E6%8F%92%E5%85%A5/"/>
+      <url>/2023/01/10/MySQL/%E5%AD%98%E5%9C%A8%E6%97%B6%E4%B8%8D%E6%93%8D%E4%BD%9C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%88%99%E6%8F%92%E5%85%A5/</url>
+      
+        <content type="html"><![CDATA[<p><strong>插入的字段必须有唯一键（或作为主键）</strong></p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> IGNORE <span class="keyword">INTO</span> 表名(字段<span class="number">1</span>,字段<span class="number">2.</span>..) <span class="keyword">VALUES</span>(值<span class="number">1</span>,值<span class="number">2.</span>..)</span><br></pre></td></tr></table></figure><p><strong>Tips: 批量插入也可用</strong></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/MongoDB/%E6%95%B4%E5%90%88SpringBoot/"/>
+      <url>/2023/01/10/MongoDB/%E6%95%B4%E5%90%88SpringBoot/</url>
+      
+        <content type="html"><![CDATA[<h2 id="整合步骤"><a href="#整合步骤" class="headerlink" title="整合步骤"></a>整合步骤</h2><h3 id="1-引入依赖"><a href="#1-引入依赖" class="headerlink" title="1.引入依赖"></a>1.引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-mongodb<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure><h3 id="2-设置数据库地址"><a href="#2-设置数据库地址" class="headerlink" title="2.设置数据库地址"></a>2.设置数据库地址</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 无密码</span></span><br><span class="line"><span class="attr">spring.data.mongodb.uri</span>=<span class="string">mongodb://localhost:27017/demo</span></span><br></pre></td></tr></table></figure><h3 id="3-测试"><a href="#3-测试" class="headerlink" title="3.测试"></a>3.测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.junit.jupiter.api.Test;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.mongodb.core.MongoTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MongoDBTemplatesTests</span> <span class="keyword">extends</span> <span class="title class_">Demo1ApplicationTests</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> MongoTemplate mongoTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MongoDBTemplatesTests</span><span class="params">(MongoTemplate mongoTemplate)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.mongoTemplate = mongoTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testCreateCollection</span><span class="params">()</span> &#123;</span><br><span class="line">        mongoTemplate.createCollection(<span class="string">&quot;comments&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testDropCollection</span><span class="params">()</span> &#123;</span><br><span class="line">        mongoTemplate.dropCollection(<span class="string">&quot;comments&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="相关注解"><a href="#相关注解" class="headerlink" title="相关注解"></a>相关注解</h2><h4 id="Document"><a href="#Document" class="headerlink" title="@Document"></a><code>@Document</code></h4><ul><li>修饰范围：类</li><li>用来映射这个类的一个对象为mongodb中的一条文档数据</li><li>属性（value、collection）用来指定操作的集合名称</li></ul><h4 id="Id"><a href="#Id" class="headerlink" title="@Id"></a><code>@Id</code></h4><ul><li>修饰范围：成员变量</li><li>作用：用于将成员变量的值映射为<code>_id</code>的值</li></ul><h4 id="Field"><a href="#Field" class="headerlink" title="@Field"></a><code>@Field</code></h4><ul><li>修饰范围：成员变量</li><li>作用：将成员变量及其值映射为 key，value 对</li><li>属性 （name，value）指定存入mongodb时的key名称，默认为成员变量名</li></ul><h4 id="Transient"><a href="#Transient" class="headerlink" title="@Transient"></a><code>@Transient</code></h4><ul><li>修饰范围：成员变量</li><li>作用：指定该成员变量不参与序列化</li></ul>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/MongoDB/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/"/>
+      <url>/2023/01/10/MongoDB/%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<h2 id="库"><a href="#库" class="headerlink" title="库"></a>库</h2><h4 id="查看所有数据库"><a href="#查看所有数据库" class="headerlink" title="查看所有数据库"></a>查看所有数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases; | show dbs;</span><br></pre></td></tr></table></figure><h4 id="创建并使用数据库-当创建的数据库中没有任何数据时，-使用-show-dbs-命令默认不显示该数据库"><a href="#创建并使用数据库-当创建的数据库中没有任何数据时，-使用-show-dbs-命令默认不显示该数据库" class="headerlink" title="创建并使用数据库(当创建的数据库中没有任何数据时， 使用 show dbs 命令默认不显示该数据库)"></a>创建并使用数据库(当创建的数据库中没有任何数据时， 使用 <code>show dbs</code> 命令默认不显示该数据库)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use [数据库名称];</span><br></pre></td></tr></table></figure><h4 id="查看当前所使用数据库"><a href="#查看当前所使用数据库" class="headerlink" title="查看当前所使用数据库"></a>查看当前所使用数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db;</span><br></pre></td></tr></table></figure><h4 id="删除数据库"><a href="#删除数据库" class="headerlink" title="删除数据库"></a>删除数据库</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.dropDatabase();</span><br></pre></td></tr></table></figure><h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h4 id="查看所有集合"><a href="#查看所有集合" class="headerlink" title="查看所有集合"></a>查看所有集合</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show collections; | show tables;</span><br></pre></td></tr></table></figure><h4 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createCollection(&#x27;集合名称&#x27;, [option]);</span><br></pre></td></tr></table></figure><blockquote><p>注意：当集合不存在时，向集合中插入数据也会创建该集合</p></blockquote><h4 id="删除集合"><a href="#删除集合" class="headerlink" title="删除集合"></a>删除集合</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.drop();</span><br></pre></td></tr></table></figure><h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><h4 id="插入文档"><a href="#插入文档" class="headerlink" title="插入文档"></a>插入文档</h4><ul><li><p>单条文档</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.insert(&#123;name: &quot;zs&quot;&#125;)</span><br></pre></td></tr></table></figure></li><li><p>多条文档</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.insertMany(</span><br><span class="line">[&lt;document1&gt;, &lt;document2&gt;, ...], </span><br><span class="line">&#123;</span><br><span class="line">writeConcern: 1， // 写入策略，默认为1.即要求确认写操作，0 是不要求</span><br><span class="line">oredered: true  // 是否按顺序写入</span><br><span class="line">&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">db.集合名称.insert([&lt;document1&gt;, &lt;document2&gt;, ...]);</span><br></pre></td></tr></table></figure></li><li><p>脚本方式</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">3</span>;i &lt; <span class="number">9</span>;i++)&#123;</span><br><span class="line">    db.集合名称.<span class="title function_">insert</span>(&#123;<span class="attr">_id</span>: i, <span class="attr">name</span>: <span class="string">&quot;db&quot;</span>+i&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ul><h4 id="查看所有文档"><a href="#查看所有文档" class="headerlink" title="查看所有文档"></a>查看所有文档</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.find()</span><br></pre></td></tr></table></figure><h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.remove(</span><br><span class="line">&lt;query&gt;,</span><br><span class="line">&#123;</span><br><span class="line">justOne: &lt;boolean&gt;,</span><br><span class="line">writeConcern: &lt;document&gt;</span><br><span class="line">&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p><strong>参数说明：</strong></p><ul><li>query（可选）：删除条件</li><li>justOne （可选）：是否只删除一条符合条件的文档，默认false</li><li>writeConcern （可选）：抛出异常的级别</li></ul><h4 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.update(</span><br><span class="line">&lt;query&gt;,</span><br><span class="line">&lt;update&gt;,</span><br><span class="line">&#123;</span><br><span class="line">upsert: &lt;boolean&gt;,</span><br><span class="line">multi: &lt;boolean&gt;,</span><br><span class="line">writeConcern: &lt;document&gt;</span><br><span class="line">&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p><strong>参数说明：</strong></p><ul><li>query：update的查询条件，类似 sql update 语句 where 后面的</li><li>update：update的对象和一些更新操作符（如$,$inc…）等，也可以理解为 sql 的update 语句 set 后面的</li><li>upsert （可选）：如果不存在update的文档，是否插入 objNew，true为插入，默认是false，不插入</li><li>multi（可选）：update 条件如果找到多个文档，是否全部更新，默认为false，只更新按条件查询到的第一个文档</li><li>writeConcern （可选）：抛出异常的级别</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">现有集合users</span><br><span class="line">users = [</span><br><span class="line">&#123;_id: 1, name: &quot;db1&quot;, age: 23&#125;,</span><br><span class="line">&#123;_id: 2, name: &quot;db2&quot;, age: 25&#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">// 将集合users中age=25 的文档改为 age=28</span><br><span class="line">db.users.update(&#123;age: 25&#125;, &#123;age: 28&#125;)</span><br><span class="line">// 更新后的users集合，因为默认更新规则是先删除原有字段再插入新字段</span><br><span class="line">users = [</span><br><span class="line">&#123;_id: 1, name: &quot;db1&quot;, age: 23&#125;,</span><br><span class="line">&#123;_id: 2, age: 28&#125;,</span><br><span class="line">]</span><br><span class="line">// 保留原始数据的写法</span><br><span class="line">db.users.update(&#123;age: 28&#125;, &#123;$set: &#123;name: &quot;db3&quot;&#125;&#125;)</span><br><span class="line">// 更新后的users集合</span><br><span class="line">users = [</span><br><span class="line">&#123;_id: 1, name: &quot;db1&quot;, age: 23&#125;,</span><br><span class="line">&#123;_id: 2, age: 28, name: &quot;db3&quot;&#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure><h4 id="查询文档"><a href="#查询文档" class="headerlink" title="查询文档"></a>查询文档</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.find(query, prjection)</span><br></pre></td></tr></table></figure><p><strong>参数说明：</strong></p><ul><li>query（可选）：指定查询条件</li><li>prjection（可选）：使用投影操作符指定返回的键</li></ul><p><strong>以格式化的方式显示出查询结果：</strong></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.集合名称.find(query, prjection).pretty()</span><br></pre></td></tr></table></figure><p><strong>对比语法：</strong></p><p><img src="/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-img/image-20220921222411565.png" alt="image-20220921222411565"></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Linux/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+      <url>/2023/01/10/Linux/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
+      
+        <content type="html"><![CDATA[<h4 id="动态监控文件变化"><a href="#动态监控文件变化" class="headerlink" title="动态监控文件变化"></a>动态监控文件变化</h4><p>命令 <code>tail -f 文件</code> 可以对某个文件进行动态监控，例如 tomcat 的日志文件， 会随着程序的运行，日志会变化，可以使用 <code>tail -f catalina-2016-11-11.log</code> 监控 文 件的变化 。</p><h4 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -P [文件保存目录] [文件下载地址]</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Java/%E8%B7%B3%E5%87%BA%E5%A4%9A%E5%B1%82%E5%BE%AA%E7%8E%AF/"/>
+      <url>/2023/01/10/Java/%E8%B7%B3%E5%87%BA%E5%A4%9A%E5%B1%82%E5%BE%AA%E7%8E%AF/</url>
+      
+        <content type="html"><![CDATA[<p><strong>在Java中，要想跳出多重循环，可以在外面的循环语句前定义一个标号，然后在里层循环体的代码</strong></p><p><strong>中使用带有标号的break 语句，即可跳出外层循环。例如：</strong></p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ok:</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;i=&quot;</span> + i + <span class="string">&quot;,j=&quot;</span> + j);</span><br><span class="line">                <span class="keyword">if</span> (j == <span class="number">5</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span> ok;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Java/%E5%BC%82%E5%B8%B8/"/>
+      <url>/2023/01/10/Java/%E5%BC%82%E5%B8%B8/</url>
+      
+        <content type="html"><![CDATA[<h4 id="finally是无条件执行的吗？"><a href="#finally是无条件执行的吗？" class="headerlink" title="finally是无条件执行的吗？"></a>finally是无条件执行的吗？</h4><p><strong>参考答案</strong></p><p>不管try块中的代码是否出现异常，也不管哪一个catch块被执行，甚至在try块或catch块中执行了return语句，finally块总会被执行。</p><p><strong>注意事项</strong></p><p>如果在try块或catch块中使用 System.exit(1); 来退出虚拟机，则finally块将失去执行的机会。但是我们在实际的开发中，从来都不会这样做，所以尽管存在这种导致finally块无法执行的可能，也只是一种可能而已。</p><h4 id="在finally中return会发生什么？"><a href="#在finally中return会发生什么？" class="headerlink" title="在finally中return会发生什么？"></a>在finally中return会发生什么？</h4><p><strong>参考答案</strong></p><p>在通常情况下，不要在finally块中使用return、throw等导致方法终止的语句，一旦在finally块中使用了return、throw语句，将会导致try块、catch块中的return、throw语句失效。</p><p><strong>详细解析</strong></p><p>当Java程序执行try块、catch块时遇到了return或throw语句，这两个语句都会导致该方法立即结束，但是系统执行这两个语句并不会结束该方法，而是去寻找该异常处理流程中是否包含finally块，如果没有finally块，程序立即执行return或throw语句，方法终止；如果有finally块，系统立即开始执行finally块。只有当finally块执行完成后，系统才会再次跳回来执行try块、catch块里的return或throw语句；如果finally块里也使用了return或throw等导致方法终止的语句，finally块已经终止了方法，系统将不会跳回去执行try块、catch块里的任何代码。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+      <url>/2023/01/10/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<h3 id="资源礼让"><a href="#资源礼让" class="headerlink" title="资源礼让"></a>资源礼让</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 在线程内调用该方法可将当前线程的CPU资源礼让给相同优先级的其它线程</span><br><span class="line">Thread.yield()</span><br></pre></td></tr></table></figure><h3 id="检查程序是否出现死锁"><a href="#检查程序是否出现死锁" class="headerlink" title="检查程序是否出现死锁"></a>检查程序是否出现死锁</h3><p>1、确保要检查的程序正在运行</p><p>2、打开终端，输入如下命令查看所有正在运行的java程序的进程号</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps</span><br></pre></td></tr></table></figure><p><img src="/%E5%A4%9A%E7%BA%BF%E7%A8%8B-img/image-20221020204656530.png" alt="image-20221020204656530"></p><p>3、找到当前运行程序的进程号，输入如下命令</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack [进程号]</span><br></pre></td></tr></table></figure><p><img src="/%E5%A4%9A%E7%BA%BF%E7%A8%8B-img/image-20221020204814121.png" alt="image-20221020204814121"></p><p>4、根据打印出的信息判断程序有无死锁。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Java/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+      <url>/2023/01/10/Java/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Java程序初始化顺序"><a href="#Java程序初始化顺序" class="headerlink" title="Java程序初始化顺序"></a>Java程序初始化顺序</h4><p><strong>1、父类的静态代码块</strong></p><p><strong>2、子类的静态代码块</strong></p><p><strong>3、父类的普通代码块</strong></p><p><strong>4、父类的构造方法</strong></p><p><strong>5、子类的普通代码块</strong></p><p><strong>6、子类的构造方法</strong></p><h4 id="说一说你对static关键字的理解"><a href="#说一说你对static关键字的理解" class="headerlink" title="说一说你对static关键字的理解"></a>说一说你对static关键字的理解</h4><p><strong>参考答案</strong></p><p>在Java类里只能包含成员变量、方法、构造器、初始化块、内部类（包括接口、枚举）5种成员，而static可以修饰成员变量、方法、初始化块、内部类（包括接口、枚举），以static修饰的成员就是类成员。类成员属于整个类，而不属于单个对象。</p><p>对static关键字而言，有一条非常重要的规则：类成员（包括成员变量、方法、初始化块、内部类和内部枚举）不能访问实例成员（包括成员变量、方法、初始化块、内部类和内部枚举）。因为类成员是属于类的，类成员的作用域比实例成员的作用域更大，完全可能出现类成员已经初始化完成，但实例成员还不曾初始化的情况，如果允许类成员访问实例成员将会引起大量错误。</p><h4 id="static修饰的类能不能被继承？"><a href="#static修饰的类能不能被继承？" class="headerlink" title="static修饰的类能不能被继承？"></a>static修饰的类能不能被继承？</h4><p><strong>参考答案</strong></p><p>static修饰的类可以被继承。</p><p><strong>扩展阅读</strong></p><p>如果使用static来修饰一个内部类，则这个内部类就属于外部类本身，而不属于外部类的某个对象。因此使用static修饰的内部类被称为类内部类，有的地方也称为静态内部类。</p><p>static关键字的作用是把类的成员变成类相关，而不是实例相关，即static修饰的成员属于整个类，而不属于单个对象。外部类的上一级程序单元是包，所以不可使用static修饰；而内部类的上一级程序单元是外部类，使用static修饰可以将内部类变成外部类相关，而不是外部类实例相关。因此static关键字不可修饰外部类，但可修饰内部类。</p><p>静态内部类需满足如下规则：</p><ol><li><p>静态内部类可以包含静态成员，也可以包含非静态成员；</p></li><li><p>静态内部类不能访问外部类的实例成员，只能访问它的静态成员；</p></li><li><p>外部类的所有方法、初始化块都能访问其内部定义的静态内部类；</p></li><li><p>在外部类的外部，也可以实例化静态内部类，语法如下：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">外部类.内部类 变量名 = new 外部类.内部类构造方法();</span><br></pre></td></tr></table></figure></li></ol><h4 id="static和final有什么区别？"><a href="#static和final有什么区别？" class="headerlink" title="static和final有什么区别？"></a>static和final有什么区别？</h4><p><strong>参考答案</strong></p><p>static关键字可以修饰成员变量、成员方法、初始化块、内部类，被static修饰的成员是类的成员，它属于类、不属于单个对象。以下是static修饰这4种成员时表现出的特征：</p><ul><li>类变量：被static修饰的成员变量叫类变量（静态变量）。类变量属于类，它随类的信息存储在方法区，并不随对象存储在堆中，类变量可以通过类名来访问，也可以通过对象名来访问，但建议通过类名访问它。</li><li>类方法：被static修饰的成员方法叫类方法（静态方法）。类方法属于类，可以通过类名访问，也可以通过对象名访问，建议通过类名访问它。</li><li>静态块：被static修饰的初始化块叫静态初始化块。静态块属于类，它在类加载的时候被隐式调用一次，之后便不会被调用了。</li><li>静态内部类：被static修饰的内部类叫静态内部类。静态内部类可以包含静态成员，也可以包含非静态成员。静态内部类不能访问外部类的实例成员，只能访问外部类的静态成员。外部类的所有方法、初始化块都能访问其内部定义的静态内部类。</li></ul><p>final关键字可以修饰类、方法、变量，以下是final修饰这3种目标时表现出的特征：</p><ul><li>final类：final关键字修饰的类不可以被继承。</li><li>final方法：final关键字修饰的方法不可以被重写。</li><li>final变量：final关键字修饰的变量，一旦获得了初始值，就不可以被修改。</li></ul><p><strong>扩展阅读</strong></p><p>变量分为成员变量、局部变量。</p><p>final修饰成员变量：</p><ul><li>类变量：可以在声明变量时指定初始值，也可以在静态初始化块中指定初始值；</li><li>实例变量：可以在声明变量时指定初始值，也可以在初始化块或构造方法中指定初始值；</li></ul><p>final修饰局部变量：</p><ul><li>可以在声明变量时指定初始值，也可以在后面的代码中指定初始值。</li></ul><p><em>注意：被 final 修饰的任何形式的变量，一旦获得了初始值，就不可以被修改！</em></p><h4 id="StringBuilder的appendCodePoint-int-i-方法"><a href="#StringBuilder的appendCodePoint-int-i-方法" class="headerlink" title="StringBuilder的appendCodePoint(int i)方法"></a>StringBuilder的appendCodePoint(int i)方法</h4><p>将传入int值对应的ASCII码值拼接到字符串中。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/"/>
+      <url>/2023/01/10/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB-img/image-20220820092613269.png" alt="image-20220820092613269"></p><p><strong>Integer a&#x3D; 127</strong> <strong>与</strong> <strong>Integer b &#x3D; 127</strong>相等吗</p><p>对于对象引用类型：&#x3D;&#x3D;比较的是对象的内存地址。</p><p>对于基本数据类型：&#x3D;&#x3D;比较的是值。</p><p>如果整型字面量的值在-128到127之间，那么自动装箱时不会new新的Integer对象，而是直接引用常量池中的 </p><p>Integer对象，超过范围 a1&#x3D;&#x3D;b1的结果是false </p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Java/Spring/"/>
+      <url>/2023/01/10/Java/Spring/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Transactional"><a href="#Transactional" class="headerlink" title="@Transactional"></a>@Transactional</h4><p><strong>标注在类上代表这个类的所有公共(public)非静态方法都将启用事务</strong></p><h4 id="Spring-Bean-的作用域"><a href="#Spring-Bean-的作用域" class="headerlink" title="Spring Bean 的作用域"></a>Spring Bean 的作用域</h4><p><strong>singleton、prototype、request、session、globalSession</strong></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Java/Collection&amp;Map/"/>
+      <url>/2023/01/10/Java/Collection&amp;Map/</url>
+      
+        <content type="html"><![CDATA[<h2 id="ArrayList-和-LinkedList-的区别"><a href="#ArrayList-和-LinkedList-的区别" class="headerlink" title="ArrayList 和 LinkedList 的区别"></a>ArrayList 和 LinkedList 的区别</h2><p><strong>数据结构实现：ArrayList 是动态数组的数据结构实现，而 LinkedList 是双向链表的数据结构实现。</strong> </p><p><strong>随机访问效率：ArrayList 比 LinkedList 在随机访问的时候效率要高，因为 LinkedList 是线性的数据存储方式，所以需要移动指针从前往后依次查找。</strong> </p><p><strong>增加和删除效率：在非首尾的增加和删除操作，LinkedList 要比 ArrayList 效率要高，因为 ArrayList  增删操作要影响数组内的其他数据的下标。</strong> </p><p><strong>综合来说，在需要频繁读取集合中的元素时，更推荐使用 ArrayList，而在插入和删除操作较多时，更推 荐使用 LinkedList。</strong></p><h2 id="ArrayList-和-Vector-的区别"><a href="#ArrayList-和-Vector-的区别" class="headerlink" title="ArrayList 和 Vector 的区别"></a>ArrayList 和 Vector 的区别</h2><p><strong>线程安全：Vector 使用了 Synchronized 来实现线程同步，是线程安全的，而 ArrayList 是非线程安全 的。</strong> </p><p><strong>性能：ArrayList 在性能方面要优于 Vector。</strong> </p><p><strong>扩容：ArrayList 和 Vector 都会根据实际的需要动态的调整容量，只不过在 Vector 扩容每次会增加 1  倍，而 ArrayList 只会增加 50%。</strong></p><h2 id="在-Queue-中-poll-和-remove-的区别"><a href="#在-Queue-中-poll-和-remove-的区别" class="headerlink" title="在 Queue 中 poll() 和 remove()的区别"></a>在 Queue 中 poll() 和 remove()的区别</h2><p><strong>相同点：都是返回第一个元素，并在队列中删除返回的对象。</strong> </p><p><strong>不同点：如果没有元素 poll()会返回 null，而 remove()会直接抛出 NoSuchElementException 异常。</strong></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Go/zinx/%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/"/>
+      <url>/2023/01/10/Go/zinx/%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/</url>
+      
+        <content type="html"><![CDATA[<h3 id="清理全部连接的作用"><a href="#清理全部连接的作用" class="headerlink" title="清理全部连接的作用"></a>清理全部连接的作用</h3><p>每个连接在操作系统底层都会有一个对应的fd(文件描述符)，如果server退出后连接还没有关闭，该连接就会占用操作系统的io资源(Linux 下 用lsof查看)</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Go/%E5%BE%AA%E7%8E%AF/"/>
+      <url>/2023/01/10/Go/%E5%BE%AA%E7%8E%AF/</url>
+      
+        <content type="html"><![CDATA[<h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><h5 id="Go语言中只有for-循环，基本结构如下"><a href="#Go语言中只有for-循环，基本结构如下" class="headerlink" title="Go语言中只有for 循环，基本结构如下"></a>Go语言中只有for 循环，基本结构如下</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>;i++ &#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>i :&#x3D; 0   初始化语句，在第一次迭代前执行</p><p>i &lt; 10  循环条件，在每次迭代前求值</p><p>i++  后置语句，在每次迭代的结尾执行</p><h5 id="初始化语句和后置语句是可选的。"><a href="#初始化语句和后置语句是可选的。" class="headerlink" title="初始化语句和后置语句是可选的。"></a>初始化语句和后置语句是可选的。</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sum := <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> ; sum &lt; <span class="number">1000</span>; &#123;</span><br><span class="line">sum *= <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(sum)</span><br></pre></td></tr></table></figure><h5 id="for-是-Go-中的-“while”，去掉分号即可"><a href="#for-是-Go-中的-“while”，去掉分号即可" class="headerlink" title="for 是 Go 中的 “while”，去掉分号即可"></a>for 是 Go 中的 “while”，去掉分号即可</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sum := <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> sum &lt; <span class="number">1000</span> &#123;</span><br><span class="line">sum += sum</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(sum)</span><br></pre></td></tr></table></figure><h5 id="无限循环"><a href="#无限循环" class="headerlink" title="无限循环"></a>无限循环</h5><p>如果省略循环条件，该循环就不会结束，因此无限循环可以写得很简洁。</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Go/%E5%B8%B8%E9%87%8F/"/>
+      <url>/2023/01/10/Go/%E5%B8%B8%E9%87%8F/</url>
+      
+        <content type="html"><![CDATA[<h4 id="常量的声明"><a href="#常量的声明" class="headerlink" title="常量的声明"></a>常量的声明</h4><p>常量的声明与变量类似，只不过是使用 <code>const</code> 关键字。</p><p>常量可以是字符、字符串、布尔值或数值。</p><p>常量不能用 <code>:=</code> 语法声明。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Go/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/"/>
+      <url>/2023/01/10/Go/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<h4 id="Go-的基本类型有"><a href="#Go-的基本类型有" class="headerlink" title="Go 的基本类型有"></a>Go 的基本类型有</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">bool</span></span><br><span class="line"></span><br><span class="line"><span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span>  <span class="type">int8</span>  <span class="type">int16</span>  <span class="type">int32</span>  <span class="type">int64</span></span><br><span class="line"><span class="type">uint</span> <span class="type">uint8</span> <span class="type">uint16</span> <span class="type">uint32</span> <span class="type">uint64</span> <span class="type">uintptr</span></span><br><span class="line"></span><br><span class="line"><span class="type">byte</span> <span class="comment">// uint8 的别名</span></span><br><span class="line"></span><br><span class="line"><span class="type">rune</span> <span class="comment">// int32 的别名</span></span><br><span class="line">    <span class="comment">// 表示一个 Unicode 码点</span></span><br><span class="line"></span><br><span class="line"><span class="type">float32</span> <span class="type">float64</span></span><br><span class="line"></span><br><span class="line"><span class="type">complex64</span> <span class="type">complex128</span></span><br></pre></td></tr></table></figure><h4 id="零值"><a href="#零值" class="headerlink" title="零值"></a>零值</h4><p>没有明确初始值的变量声明会被赋予它们的 <strong>零值</strong>。</p><p>零值是：</p><ul><li>数值类型为 <code>0</code>，</li><li>布尔类型为 <code>false</code>，</li><li>字符串为 <code>&quot;&quot;</code>（空字符串）。</li></ul><h4 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h4><p>Go 在不同类型的变量之间赋值时需要显式转换。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Go/%E5%87%BD%E6%95%B0/"/>
+      <url>/2023/01/10/Go/%E5%87%BD%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<h4 id="为返回值命名"><a href="#为返回值命名" class="headerlink" title="为返回值命名"></a>为返回值命名</h4><p>Go可以给返回值命名以直接返回函数体中对应名称的局部变量，例：</p><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">split</span><span class="params">(sum <span class="type">int</span>)</span></span> (x, y <span class="type">int</span>) &#123;</span><br><span class="line">x = sum * <span class="number">4</span> / <span class="number">9</span></span><br><span class="line">y = sum - x</span><br><span class="line"><span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">fmt.Println(split(<span class="number">9</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>split 函数 返回x, y</p><p>*Tips: 直接返回语句应当仅用在上面这样的短函数中，在长的函数中它们会影响代码的可读性。</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Go/Go1.19%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%88%9D%E5%A7%8B%E5%8C%96/"/>
+      <url>/2023/01/10/Go/Go1.19%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%88%9D%E5%A7%8B%E5%8C%96/</url>
+      
+        <content type="html"><![CDATA[<p>现有如下项目结构：</p><p>some-project</p><p>​-module1</p><p>​–A.go</p><p>​–go.mod</p><p>​-module2</p><p>​–B.go</p><p>​–go.mod </p><p>go.work</p><p>在go1.18以后需要在go.work文件中use对应的模块</p><p>go.work示例代码</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">go 1.19</span><br><span class="line">use (</span><br><span class="line">./module1</span><br><span class="line">./module2</span><br><span class="line">)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/ElasticSearch/%E6%98%A0%E5%B0%84%E8%A7%84%E5%88%99%E6%94%B9%E5%8F%98%E5%90%8E%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/"/>
+      <url>/2023/01/10/ElasticSearch/%E6%98%A0%E5%B0%84%E8%A7%84%E5%88%99%E6%94%B9%E5%8F%98%E5%90%8E%E7%9A%84%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/</url>
+      
+        <content type="html"><![CDATA[<h3 id="1、创建新索引及映射规则"><a href="#1、创建新索引及映射规则" class="headerlink" title="1、创建新索引及映射规则"></a>1、创建新索引及映射规则</h3><p><strong>解释</strong>：如果直接更改原索引的映射规则，原数据不会同步变化</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">PUT your_index_name // 新的索引名称</span><br><span class="line">// 新的映射规则</span><br><span class="line">&#123;</span><br><span class="line">  &quot;mappings&quot;: &#123;</span><br><span class="line">    &quot;properties&quot;: &#123;</span><br><span class="line">      &quot;attrs&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;nested&quot;,</span><br><span class="line">        &quot;properties&quot;: &#123;</span><br><span class="line">          &quot;attrId&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;long&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;attrName&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">          &#125;,</span><br><span class="line">          &quot;attrValue&quot;: &#123;</span><br><span class="line">            &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;brandId&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;long&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;brandImg&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;brandName&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;catalogId&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;long&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;catalogName&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;hasStock&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;boolean&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;hotScore&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;long&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;saleCount&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;long&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;skuId&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;long&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;skuImg&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;skuPrice&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;skuTitle&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;text&quot;,</span><br><span class="line">        &quot;analyzer&quot;: &quot;ik_smart&quot;</span><br><span class="line">      &#125;,</span><br><span class="line">      &quot;spuId&quot;: &#123;</span><br><span class="line">        &quot;type&quot;: &quot;keyword&quot;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2、迁移数据"><a href="#2、迁移数据" class="headerlink" title="2、迁移数据"></a>2、迁移数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POST _reindex</span><br><span class="line">&#123;</span><br><span class="line">  &quot;source&quot;: &#123;</span><br><span class="line">    &quot;index&quot;: &quot;old_index_name&quot; // 原索引名称</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dest&quot;: &#123;</span><br><span class="line">    &quot;index&quot;: &quot;new_index_name&quot;  // 新索引名称</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/ElasticSearch/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%B1%9E%E6%80%A7/"/>
+      <url>/2023/01/10/ElasticSearch/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%B1%9E%E6%80%A7/</url>
+      
+        <content type="html"><![CDATA[<p>嵌入式属性(type&#x3D;nested)：查询、聚合、分析都需要通过嵌入式的方式</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Docker/docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/"/>
+      <url>/2023/01/10/Docker/docker%E6%97%A5%E5%BF%97%E6%B8%85%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-问题"><a href="#1-问题" class="headerlink" title="1.问题"></a>1.问题</h2><p>docker容器日志导致主机磁盘空间满了。docker logs -f container_name噼里啪啦一大堆，很占用空间，不用的日志可以清理掉了。</p><h2 id="2-解决方法"><a href="#2-解决方法" class="headerlink" title="2.解决方法"></a>2.解决方法</h2><h3 id="2-1-找出Docker容器日志"><a href="#2-1-找出Docker容器日志" class="headerlink" title="2.1 找出Docker容器日志"></a>2.1 找出Docker容器日志</h3><p>在linux上，容器日志一般存放在&#x2F;var&#x2F;lib&#x2F;docker&#x2F;containers&#x2F;container_id&#x2F;下面， 以json.log结尾的文件（业务日志）很大，查看各个日志文件大小的脚本docker_log_size.sh，内容如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span></span><br><span class="line"></span><br><span class="line">echo &quot;======== docker containers logs file size ========&quot;  </span><br><span class="line"></span><br><span class="line">logs=$(find /var/lib/docker/containers/ -name *-json.log)  </span><br><span class="line"></span><br><span class="line">for log in $logs  </span><br><span class="line">        do  </span><br><span class="line">             ls -lh $log   </span><br><span class="line">        done  </span><br><span class="line"></span><br><span class="line">chmod +x docker_log_size.sh</span><br><span class="line"></span><br><span class="line">./docker_log_size.sh</span><br></pre></td></tr></table></figure><h3 id="2-2-清理Docker容器日志（治标）"><a href="#2-2-清理Docker容器日志（治标）" class="headerlink" title="2.2 清理Docker容器日志（治标）"></a>2.2 清理Docker容器日志（治标）</h3><p>如果docker容器正在运行，那么使用rm -rf方式删除日志后，通过df -h会发现磁盘空间并没有释放。原因是在Linux或者Unix系统中，通过rm -rf或者文件管理器删除文件，将会从文件系统的目录结构上解除链接（unlink）。如果文件是被打开的（有一个进程正在使用），那么进程将仍然可以读取该文件，磁盘空间也一直被占用。正确姿势是cat &#x2F;dev&#x2F;null &gt; *-json.log，当然你也可以通过rm -rf删除后重启docker。接下来，提供一个日志清理脚本clean_docker_log.sh，内容如下：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/sh</span> </span><br><span class="line"></span><br><span class="line">echo &quot;======== start clean docker containers logs ========&quot;  </span><br><span class="line"></span><br><span class="line">logs=$(find /var/lib/docker/containers/ -name *-json.log)  </span><br><span class="line"></span><br><span class="line">for log in $logs  </span><br><span class="line">        do  </span><br><span class="line">                echo &quot;clean logs : $log&quot;  </span><br><span class="line">                cat /dev/null &gt; $log  </span><br><span class="line">        done  </span><br><span class="line"></span><br><span class="line">echo &quot;======== end clean docker containers logs ========&quot;  </span><br><span class="line"></span><br><span class="line">chmod +x clean_docker_log.sh</span><br><span class="line"></span><br><span class="line">./clean_docker_log.sh</span><br></pre></td></tr></table></figure><p>但是，这样清理之后，随着时间的推移，容器日志会像杂草一样，卷土重来。</p><h3 id="2-3-设置Docker容器日志大小（治本）"><a href="#2-3-设置Docker容器日志大小（治本）" class="headerlink" title="2.3 设置Docker容器日志大小（治本）"></a>2.3 设置Docker容器日志大小（治本）</h3><p>设置一个容器服务的日志大小上限<br>上述方法，日志文件迟早又会涨回来。要从根本上解决问题，需要限制容器服务的日志大小上限。这个通过配置容器docker-compose的max-size选项来实现</p><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">nginx:</span> </span><br><span class="line">  <span class="attr">image:</span> <span class="string">nginx:1.12.1</span> </span><br><span class="line">  <span class="attr">restart:</span> <span class="string">always</span> </span><br><span class="line">  <span class="attr">logging:</span> </span><br><span class="line">    <span class="attr">driver:</span> <span class="string">“json-file”</span> </span><br><span class="line">    <span class="attr">options:</span> </span><br><span class="line">      <span class="attr">max-size:</span> <span class="string">“5g”</span> </span><br></pre></td></tr></table></figure><p>重启nginx容器之后，其日志文件的大小就被限制在5GB，再也不用担心了。</p><p>全局设置<br>新建&#x2F;etc&#x2F;docker&#x2F;daemon.json，若有就不用新建了。添加log-dirver和log-opts参数，样例如下：</p><p><code>vim /etc/docker/daemon.json</code></p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;registry-mirrors&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;http://f613ce8f.m.daocloud.io&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;log-driver&quot;</span><span class="punctuation">:</span><span class="string">&quot;json-file&quot;</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;log-opts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span><span class="attr">&quot;max-size&quot;</span><span class="punctuation">:</span><span class="string">&quot;500m&quot;</span><span class="punctuation">,</span> <span class="attr">&quot;max-file&quot;</span><span class="punctuation">:</span><span class="string">&quot;3&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><p>max-size&#x3D;500m，意味着一个容器日志大小上限是500M，<br>max-file&#x3D;3，意味着一个容器有三个日志，分别是id+.json、id+1.json、id+2.json。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 重启docker守护进程</span><br><span class="line"></span><br><span class="line">systemctl daemon-reload</span><br><span class="line"></span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure><blockquote><p>注意：设置的日志大小，只对新建的容器有效。</p></blockquote>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/Docker/docker%E5%90%AF%E5%8A%A8%E6%97%B6%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E6%9F%90%E4%B8%AA%E5%AE%B9%E5%99%A8/"/>
+      <url>/2023/01/10/Docker/docker%E5%90%AF%E5%8A%A8%E6%97%B6%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E6%9F%90%E4%B8%AA%E5%AE%B9%E5%99%A8/</url>
+      
+        <content type="html"><![CDATA[<p><code>docker update [容器id] --restart=always</code></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title></title>
+      <link href="/2023/01/10/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/"/>
+      <url>/2023/01/10/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/</url>
+      
+        <content type="html"><![CDATA[<h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>保证一定能读到最新数据，写锁是一个排他锁(互斥锁、独享锁)，读锁是共享锁</p><h2 id="不同情况下的表现"><a href="#不同情况下的表现" class="headerlink" title="不同情况下的表现"></a>不同情况下的表现</h2><h3 id="读-读"><a href="#读-读" class="headerlink" title="读 + 读"></a>读 + 读</h3><blockquote><p>相当于无锁</p></blockquote><h3 id="读-写"><a href="#读-写" class="headerlink" title="读 + 写"></a>读 + 写</h3><blockquote><p>需要等待读锁释放才能写</p></blockquote><h3 id="写-读"><a href="#写-读" class="headerlink" title="写 + 读"></a>写 + 读</h3><blockquote><p>需要等待写锁释放才能读</p></blockquote><h3 id="写-写"><a href="#写-写" class="headerlink" title="写 + 写"></a>写 + 写</h3><blockquote><p>需要等待写锁释放才能继续写</p></blockquote><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><strong>只要有写操作就必须等待</strong></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
