@@ -1,207 +1,1004 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Welcome to Logeek's Blog</title><meta name="author" content="Logeek"><meta name="copyright" content="Logeek"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"logeekbro.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Welcome to Logeek&#39;s Blog">
 <meta property="og:url" content="http://logeekbro.github.io/page/2/index.html">
 <meta property="og:site_name" content="Welcome to Logeek&#39;s Blog">
-<meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="og:locale" content="en_US">
 <meta property="article:author" content="Logeek">
+<meta property="article:tag" content="博客 blog Blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://logeekbro.github.io/page/2/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
-  root: '/',
-  algolia: undefined,
-  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
-  translate: undefined,
-  noticeOutdate: undefined,
-  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
-  copy: {
-    success: '复制成功',
-    error: '复制错误',
-    noSupport: '浏览器不支持'
-  },
-  relativeDate: {
-    homepage: false,
-    post: false
-  },
-  runtime: '',
-  date_suffix: {
-    just: '刚刚',
-    min: '分钟前',
-    hour: '小时前',
-    day: '天前',
-    month: '个月前'
-  },
-  copyright: undefined,
-  lightbox: 'fancybox',
-  Snackbar: undefined,
-  source: {
-    justifiedGallery: {
-      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
-      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
-    }
-  },
-  isPhotoFigcaption: false,
-  islazyload: false,
-  isAnchor: false
-}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
-  title: 'Welcome to Logeek\'s Blog',
-  isPost: false,
-  isHome: true,
-  isHighlightShrink: false,
-  isToc: false,
-  postUpdate: '2023-01-13 00:53:15'
-}</script><noscript><style type="text/css">
-  #nav {
-    opacity: 1
-  }
-  .justified-gallery img {
-    opacity: 1
-  }
 
-  #recent-posts time,
-  #post-meta time {
-    display: inline !important
-  }
-</style></noscript><script>(win=>{
-    win.saveToLocal = {
-      set: function setWithExpiry(key, value, ttl) {
-        if (ttl === 0) return
-        const now = new Date()
-        const expiryDay = ttl * 86400000
-        const item = {
-          value: value,
-          expiry: now.getTime() + expiryDay,
-        }
-        localStorage.setItem(key, JSON.stringify(item))
-      },
 
-      get: function getWithExpiry(key) {
-        const itemStr = localStorage.getItem(key)
+<link rel="canonical" href="http://logeekbro.github.io/page/2/">
 
-        if (!itemStr) {
-          return undefined
-        }
-        const item = JSON.parse(itemStr)
-        const now = new Date()
 
-        if (now.getTime() > item.expiry) {
-          localStorage.removeItem(key)
-          return undefined
-        }
-        return item.value
-      }
-    }
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"en","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Welcome to Logeek's Blog</title>
   
-    win.getScript = url => new Promise((resolve, reject) => {
-      const script = document.createElement('script')
-      script.src = url
-      script.async = true
-      script.onerror = reject
-      script.onload = script.onreadystatechange = function() {
-        const loadState = this.readyState
-        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
-        script.onload = script.onreadystatechange = null
-        resolve()
-      }
-      document.head.appendChild(script)
-    })
-  
-      win.activateDarkMode = function () {
-        document.documentElement.setAttribute('data-theme', 'dark')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
-        }
-      }
-      win.activateLightMode = function () {
-        document.documentElement.setAttribute('data-theme', 'light')
-        if (document.querySelector('meta[name="theme-color"]') !== null) {
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
-        }
-      }
-      const t = saveToLocal.get('theme')
-    
-          if (t === 'dark') activateDarkMode()
-          else if (t === 'light') activateLightMode()
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Welcome to Logeek's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
         
-      const asideStatus = saveToLocal.get('aside-status')
-      if (asideStatus !== undefined) {
-        if (asideStatus === 'hide') {
-          document.documentElement.classList.add('hide-aside')
-        } else {
-          document.documentElement.classList.remove('hide-aside')
-        }
-      }
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Logeek"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Logeek</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Logeekbro" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Logeekbro" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2031500185@qq.com" title="E-Mail → mailto:2031500185@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
     
-    const detectApple = () => {
-      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-        document.documentElement.classList.add('apple')
-      }
-    }
-    detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr/></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Welcome to Logeek's Blog</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Welcome to Logeek's Blog</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/13/Linux/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="常用命令"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="常用命令"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Linux/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="常用命令">常用命令</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:18.085Z" title="发表于 2023-01-13 00:47:18">2023-01-13</time></span></div><div class="content">动态监控文件变化命令 tail -f 文件 可以对某个文件进行动态监控，例如 tomcat 的日志文件， 会随着程序的运行，日志会变化，可以使用 tail -f catalina-2016-11-11.log 监控 文 件的变化 。
-下载文件1wget -P [文件保存目录] [文件下载地址]
-
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/13/Java/%E8%B7%B3%E5%87%BA%E5%A4%9A%E5%B1%82%E5%BE%AA%E7%8E%AF/" title="跳出多层循环"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="跳出多层循环"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Java/%E8%B7%B3%E5%87%BA%E5%A4%9A%E5%B1%82%E5%BE%AA%E7%8E%AF/" title="跳出多层循环">跳出多层循环</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.984Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">在Java中，要想跳出多重循环，可以在外面的循环语句前定义一个标号，然后在里层循环体的代码
-中使用带有标号的break 语句，即可跳出外层循环。例如：
-1234567891011public static void main(String[] args) &#123;        ok:        for (int i = 0; i &lt; 10; i++) &#123;            for (int j = 0; j &lt; 10; j++) &#123;                System.out.println(&quot;i=&quot; + i + &quot;,j=&quot; + j);                if (j == 5) &#123;                    break ok;                &#125;            &#125;        &#125;    &#125;
-
-</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/13/Java/%E5%BC%82%E5%B8%B8/" title="异常"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="异常"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Java/%E5%BC%82%E5%B8%B8/" title="异常">异常</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.978Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">finally是无条件执行的吗？参考答案
-不管try块中的代码是否出现异常，也不管哪一个catch块被执行，甚至在try块或catch块中执行了return语句，finally块总会被执行。
-注意事项
-如果在try块或catch块中使用 System.exit(1); 来退出虚拟机，则finally块将失去执行的机会。但是我们在实际的开发中，从来都不会这样做，所以尽管存在这种导致finally块无法执行的可能，也只是一种可能而已。
-在finally中return会发生什么？参考答案
-在通常情况下，不要在finally块中使用return、throw等导致方法终止的语句，一旦在finally块中使用了return、throw语句，将会导致try块、catch块中的return、throw语句失效。
-详细解析
-当Java程序执行try块、catch块时遇到了return或throw语句，这两个语句都会导致该方法立即结束，但是系统执行这两个语句并不会结束该方法，而是去寻找该异常处理流程中是否包含finally块，如果没有finally块，程序立即执行return或throw语句，方法终止；如 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/13/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="多线程"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程">多线程</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.923Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">资源礼让12// 在线程内调用该方法可将当前线程的CPU资源礼让给相同优先级的其它线程Thread.yield()
+  </aside>
 
 
+    </div>
 
-检查程序是否出现死锁1、确保要检查的程序正在运行
-2、打开终端，输入如下命令查看所有正在运行的java程序的进程号
-1jps
+    <div class="main-inner index posts-expand">
 
-
-3、找到当前运行程序的进程号，输入如下命令
-1jstack [进程号]
+    
 
 
-4、根据打印出的信息判断程序有无死锁。
-</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/13/Java/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="基础知识"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基础知识"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Java/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="基础知识">基础知识</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.914Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">Java程序初始化顺序1、父类的静态代码块
-2、子类的静态代码块
-3、父类的普通代码块
-4、父类的构造方法
-5、子类的普通代码块
-6、子类的构造方法
-说一说你对static关键字的理解参考答案
-在Java类里只能包含成员变量、方法、构造器、初始化块、内部类（包括接口、枚举）5种成员，而static可以修饰成员变量、方法、初始化块、内部类（包括接口、枚举），以static修饰的成员就是类成员。类成员属于整个类，而不属于单个对象。
-对static关键字而言，有一条非常重要的规则：类成员（包括成员变量、方法、初始化块、内部类和内部枚举）不能访问实例成员（包括成员变量、方法、初始化块、内部类和内部枚举）。因为类成员是属于类的，类成员的作用域比实例成员的作用域更大，完全可能出现类成员已经初始化完成，但实例成员还不曾初始化的情况，如果允许类成员访问实例成员将会引起大量错误。
-static修饰的类能不能被继承？参考答案
-static修饰的类可以被继承。
-扩展阅读
-如果使用static来修饰一个内部类，则这个内部类就属于外部类本身，而不属于外部类的某个对象。因此使用static修饰的内部类被称为类内部 ...</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/13/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/" title="基本数据类型和包装类"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="基本数据类型和包装类"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/" title="基本数据类型和包装类">基本数据类型和包装类</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.891Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">
-Integer a&#x3D; 127 与 Integer b &#x3D; 127相等吗
-对于对象引用类型：&#x3D;&#x3D;比较的是对象的内存地址。
-对于基本数据类型：&#x3D;&#x3D;比较的是值。
-如果整型字面量的值在-128到127之间，那么自动装箱时不会new新的Integer对象，而是直接引用常量池中的 
-Integer对象，超过范围 a1&#x3D;&#x3D;b1的结果是false 
-</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/13/Java/Spring/" title="Spring"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Spring"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Java/Spring/" title="Spring">Spring</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.874Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">@Transactional标注在类上代表这个类的所有公共(public)非静态方法都将启用事务
-Spring Bean 的作用域singleton、prototype、request、session、globalSession
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/13/Java/Collection&amp;Map/" title="Collection&amp;Map"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Collection&amp;Map"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Java/Collection&amp;Map/" title="Collection&amp;Map">Collection&amp;Map</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.868Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">ArrayList 和 LinkedList 的区别数据结构实现：ArrayList 是动态数组的数据结构实现，而 LinkedList 是双向链表的数据结构实现。 
-随机访问效率：ArrayList 比 LinkedList 在随机访问的时候效率要高，因为 LinkedList 是线性的数据存储方式，所以需要移动指针从前往后依次查找。 
-增加和删除效率：在非首尾的增加和删除操作，LinkedList 要比 ArrayList 效率要高，因为 ArrayList  增删操作要影响数组内的其他数据的下标。 
-综合来说，在需要频繁读取集合中的元素时，更推荐使用 ArrayList，而在插入和删除操作较多时，更推 荐使用 LinkedList。
-ArrayList 和 Vector 的区别线程安全：Vector 使用了 Synchronized 来实现线程同步，是线程安全的，而 ArrayList 是非线程安全 的。 
-性能：ArrayList 在性能方面要优于 Vector。 
-扩容：ArrayList 和 Vector 都会根据实际的需要动态的调整容量，只不过在 Vector 扩容每次会 ...</div></div></div><div class="recent-post-item"><div class="post_cover left"><a href="/2023/01/13/Go/zinx/%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/" title="连接管理模块"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="连接管理模块"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Go/zinx/%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/" title="连接管理模块">连接管理模块</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.834Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">清理全部连接的作用每个连接在操作系统底层都会有一个对应的fd(文件描述符)，如果server退出后连接还没有关闭，该连接就会占用操作系统的io资源(Linux 下 用lsof查看)
-</div></div></div><div class="recent-post-item"><div class="post_cover right"><a href="/2023/01/13/Go/%E5%BE%AA%E7%8E%AF/" title="循环"><img class="post_bg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="循环"></a></div><div class="recent-post-info"><a class="article-title" href="/2023/01/13/Go/%E5%BE%AA%E7%8E%AF/" title="循环">循环</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-01-12T16:47:17.819Z" title="发表于 2023-01-13 00:47:17">2023-01-13</time></span></div><div class="content">for循环Go语言中只有for 循环，基本结构如下123for i := 0; i &lt; 10;i++ &#123;	// ...&#125;
+<div class="post-block">
+  
+  
 
-i :&#x3D; 0   初始化语句，在第一次迭代前执行
-i &lt; 10  循环条件，在每次迭代前求值
-i++  后置语句，在每次迭代的结尾执行
-初始化语句和后置语句是可选的。12345sum := 1for ; sum &lt; 1000; &#123;	sum *= 2&#125;fmt.Println(sum)
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Linux/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
-for 是 Go 中的 “while”，去掉分号即可12345sum := 1for sum &lt; 1000 &#123;sum += sum&#125;fmt.Println(sum)
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
 
-无限循环如果省略循环条件，该循环就不会结束，因此无限循环可以写得很简洁。
-12for &#123;&#125;
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
 
-</div></div></div><nav id="pagination"><div class="pagination"><a class="extend prev" rel="prev" href="/"><i class="fas fa-chevron-left fa-fw"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#content-inner">3</a><a class="extend next" rel="next" href="/page/3/#content-inner"><i class="fas fa-chevron-right fa-fw"></i></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Logeek</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/01/13/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/" title="缓存穿透与雪崩"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="缓存穿透与雪崩"/></a><div class="content"><a class="title" href="/2023/01/13/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/" title="缓存穿透与雪崩">缓存穿透与雪崩</a><time datetime="2023-01-12T16:47:18.363Z" title="发表于 2023-01-13 00:47:18">2023-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/13/Redis/%E6%95%B4%E5%90%88SpringCache/" title="整合SpringCache"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="整合SpringCache"/></a><div class="content"><a class="title" href="/2023/01/13/Redis/%E6%95%B4%E5%90%88SpringCache/" title="整合SpringCache">整合SpringCache</a><time datetime="2023-01-12T16:47:18.339Z" title="发表于 2023-01-13 00:47:18">2023-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/13/Redis/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="分布式锁"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分布式锁"/></a><div class="content"><a class="title" href="/2023/01/13/Redis/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="分布式锁">分布式锁</a><time datetime="2023-01-12T16:47:18.309Z" title="发表于 2023-01-13 00:47:18">2023-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/13/Redis/Redisson/" title="Redisson"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Redisson"/></a><div class="content"><a class="title" href="/2023/01/13/Redis/Redisson/" title="Redisson">Redisson</a><time datetime="2023-01-12T16:47:18.271Z" title="发表于 2023-01-13 00:47:18">2023-01-13</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/01/13/Redis/Java%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9/" title="Java开发中使用Redis的一些注意点"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Java开发中使用Redis的一些注意点"/></a><div class="content"><a class="title" href="/2023/01/13/Redis/Java%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BD%BF%E7%94%A8Redis%E7%9A%84%E4%B8%80%E4%BA%9B%E6%B3%A8%E6%84%8F%E7%82%B9/" title="Java开发中使用Redis的一些注意点">Java开发中使用Redis的一些注意点</a><time datetime="2023-01-12T16:47:18.238Z" title="发表于 2023-01-13 00:47:18">2023-01-13</time></div></div></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/01/"><span class="card-archive-list-date">一月 2023</span><span class="card-archive-list-count">29</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">29</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2023-01-12T16:53:15.897Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Logeek</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Linux/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">常用命令</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:18 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:18+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="动态监控文件变化"><a href="#动态监控文件变化" class="headerlink" title="动态监控文件变化"></a>动态监控文件变化</h4><p>命令 <code>tail -f 文件</code> 可以对某个文件进行动态监控，例如 tomcat 的日志文件， 会随着程序的运行，日志会变化，可以使用 <code>tail -f catalina-2016-11-11.log</code> 监控 文 件的变化 。</p>
+<h4 id="下载文件"><a href="#下载文件" class="headerlink" title="下载文件"></a>下载文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -P [文件保存目录] [文件下载地址]</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E8%B7%B3%E5%87%BA%E5%A4%9A%E5%B1%82%E5%BE%AA%E7%8E%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/%E8%B7%B3%E5%87%BA%E5%A4%9A%E5%B1%82%E5%BE%AA%E7%8E%AF/" class="post-title-link" itemprop="url">跳出多层循环</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><strong>在Java中，要想跳出多重循环，可以在外面的循环语句前定义一个标号，然后在里层循环体的代码</strong></p>
+<p><strong>中使用带有标号的break 语句，即可跳出外层循环。例如：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        ok:</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> <span class="number">0</span>; j &lt; <span class="number">10</span>; j++) &#123;</span><br><span class="line">                System.out.println(<span class="string">&quot;i=&quot;</span> + i + <span class="string">&quot;,j=&quot;</span> + j);</span><br><span class="line">                <span class="keyword">if</span> (j == <span class="number">5</span>) &#123;</span><br><span class="line">                    <span class="keyword">break</span> ok;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%BC%82%E5%B8%B8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/%E5%BC%82%E5%B8%B8/" class="post-title-link" itemprop="url">异常</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="finally是无条件执行的吗？"><a href="#finally是无条件执行的吗？" class="headerlink" title="finally是无条件执行的吗？"></a>finally是无条件执行的吗？</h4><p><strong>参考答案</strong></p>
+<p>不管try块中的代码是否出现异常，也不管哪一个catch块被执行，甚至在try块或catch块中执行了return语句，finally块总会被执行。</p>
+<p><strong>注意事项</strong></p>
+<p>如果在try块或catch块中使用 System.exit(1); 来退出虚拟机，则finally块将失去执行的机会。但是我们在实际的开发中，从来都不会这样做，所以尽管存在这种导致finally块无法执行的可能，也只是一种可能而已。</p>
+<h4 id="在finally中return会发生什么？"><a href="#在finally中return会发生什么？" class="headerlink" title="在finally中return会发生什么？"></a>在finally中return会发生什么？</h4><p><strong>参考答案</strong></p>
+<p>在通常情况下，不要在finally块中使用return、throw等导致方法终止的语句，一旦在finally块中使用了return、throw语句，将会导致try块、catch块中的return、throw语句失效。</p>
+<p><strong>详细解析</strong></p>
+<p>当Java程序执行try块、catch块时遇到了return或throw语句，这两个语句都会导致该方法立即结束，但是系统执行这两个语句并不会结束该方法，而是去寻找该异常处理流程中是否包含finally块，如果没有finally块，程序立即执行return或throw语句，方法终止；如果有finally块，系统立即开始执行finally块。只有当finally块执行完成后，系统才会再次跳回来执行try块、catch块里的return或throw语句；如果finally块里也使用了return或throw等导致方法终止的语句，finally块已经终止了方法，系统将不会跳回去执行try块、catch块里的任何代码。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="post-title-link" itemprop="url">多线程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="资源礼让"><a href="#资源礼让" class="headerlink" title="资源礼让"></a>资源礼让</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 在线程内调用该方法可将当前线程的CPU资源礼让给相同优先级的其它线程</span><br><span class="line">Thread.yield()</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="检查程序是否出现死锁"><a href="#检查程序是否出现死锁" class="headerlink" title="检查程序是否出现死锁"></a>检查程序是否出现死锁</h3><p>1、确保要检查的程序正在运行</p>
+<p>2、打开终端，输入如下命令查看所有正在运行的java程序的进程号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://logeekbro.github.io/img/image-20221020204656530.png" alt="image-20221020204656530"></p>
+<p>3、找到当前运行程序的进程号，输入如下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jstack [进程号]</span><br></pre></td></tr></table></figure>
+
+<p><img src="http://logeekbro.github.io/img/image-20221020204814121.png" alt="image-20221020204814121"></p>
+<p>4、根据打印出的信息判断程序有无死锁。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">基础知识</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="Java程序初始化顺序"><a href="#Java程序初始化顺序" class="headerlink" title="Java程序初始化顺序"></a>Java程序初始化顺序</h4><p><strong>1、父类的静态代码块</strong></p>
+<p><strong>2、子类的静态代码块</strong></p>
+<p><strong>3、父类的普通代码块</strong></p>
+<p><strong>4、父类的构造方法</strong></p>
+<p><strong>5、子类的普通代码块</strong></p>
+<p><strong>6、子类的构造方法</strong></p>
+<h4 id="说一说你对static关键字的理解"><a href="#说一说你对static关键字的理解" class="headerlink" title="说一说你对static关键字的理解"></a>说一说你对static关键字的理解</h4><p><strong>参考答案</strong></p>
+<p>在Java类里只能包含成员变量、方法、构造器、初始化块、内部类（包括接口、枚举）5种成员，而static可以修饰成员变量、方法、初始化块、内部类（包括接口、枚举），以static修饰的成员就是类成员。类成员属于整个类，而不属于单个对象。</p>
+<p>对static关键字而言，有一条非常重要的规则：类成员（包括成员变量、方法、初始化块、内部类和内部枚举）不能访问实例成员（包括成员变量、方法、初始化块、内部类和内部枚举）。因为类成员是属于类的，类成员的作用域比实例成员的作用域更大，完全可能出现类成员已经初始化完成，但实例成员还不曾初始化的情况，如果允许类成员访问实例成员将会引起大量错误。</p>
+<h4 id="static修饰的类能不能被继承？"><a href="#static修饰的类能不能被继承？" class="headerlink" title="static修饰的类能不能被继承？"></a>static修饰的类能不能被继承？</h4><p><strong>参考答案</strong></p>
+<p>static修饰的类可以被继承。</p>
+<p><strong>扩展阅读</strong></p>
+<p>如果使用static来修饰一个内部类，则这个内部类就属于外部类本身，而不属于外部类的某个对象。因此使用static修饰的内部类被称为类内部类，有的地方也称为静态内部类。</p>
+<p>static关键字的作用是把类的成员变成类相关，而不是实例相关，即static修饰的成员属于整个类，而不属于单个对象。外部类的上一级程序单元是包，所以不可使用static修饰；而内部类的上一级程序单元是外部类，使用static修饰可以将内部类变成外部类相关，而不是外部类实例相关。因此static关键字不可修饰外部类，但可修饰内部类。</p>
+<p>静态内部类需满足如下规则：</p>
+<ol>
+<li><p>静态内部类可以包含静态成员，也可以包含非静态成员；</p>
+</li>
+<li><p>静态内部类不能访问外部类的实例成员，只能访问它的静态成员；</p>
+</li>
+<li><p>外部类的所有方法、初始化块都能访问其内部定义的静态内部类；</p>
+</li>
+<li><p>在外部类的外部，也可以实例化静态内部类，语法如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">外部类.内部类 变量名 = new 外部类.内部类构造方法();</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="static和final有什么区别？"><a href="#static和final有什么区别？" class="headerlink" title="static和final有什么区别？"></a>static和final有什么区别？</h4><p><strong>参考答案</strong></p>
+<p>static关键字可以修饰成员变量、成员方法、初始化块、内部类，被static修饰的成员是类的成员，它属于类、不属于单个对象。以下是static修饰这4种成员时表现出的特征：</p>
+<ul>
+<li>类变量：被static修饰的成员变量叫类变量（静态变量）。类变量属于类，它随类的信息存储在方法区，并不随对象存储在堆中，类变量可以通过类名来访问，也可以通过对象名来访问，但建议通过类名访问它。</li>
+<li>类方法：被static修饰的成员方法叫类方法（静态方法）。类方法属于类，可以通过类名访问，也可以通过对象名访问，建议通过类名访问它。</li>
+<li>静态块：被static修饰的初始化块叫静态初始化块。静态块属于类，它在类加载的时候被隐式调用一次，之后便不会被调用了。</li>
+<li>静态内部类：被static修饰的内部类叫静态内部类。静态内部类可以包含静态成员，也可以包含非静态成员。静态内部类不能访问外部类的实例成员，只能访问外部类的静态成员。外部类的所有方法、初始化块都能访问其内部定义的静态内部类。</li>
+</ul>
+<p>final关键字可以修饰类、方法、变量，以下是final修饰这3种目标时表现出的特征：</p>
+<ul>
+<li>final类：final关键字修饰的类不可以被继承。</li>
+<li>final方法：final关键字修饰的方法不可以被重写。</li>
+<li>final变量：final关键字修饰的变量，一旦获得了初始值，就不可以被修改。</li>
+</ul>
+<p><strong>扩展阅读</strong></p>
+<p>变量分为成员变量、局部变量。</p>
+<p>final修饰成员变量：</p>
+<ul>
+<li>类变量：可以在声明变量时指定初始值，也可以在静态初始化块中指定初始值；</li>
+<li>实例变量：可以在声明变量时指定初始值，也可以在初始化块或构造方法中指定初始值；</li>
+</ul>
+<p>final修饰局部变量：</p>
+<ul>
+<li>可以在声明变量时指定初始值，也可以在后面的代码中指定初始值。</li>
+</ul>
+<p><em>注意：被 final 修饰的任何形式的变量，一旦获得了初始值，就不可以被修改！</em></p>
+<h4 id="StringBuilder的appendCodePoint-int-i-方法"><a href="#StringBuilder的appendCodePoint-int-i-方法" class="headerlink" title="StringBuilder的appendCodePoint(int i)方法"></a>StringBuilder的appendCodePoint(int i)方法</h4><p>将传入int值对应的ASCII码值拼接到字符串中。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%8C%85%E8%A3%85%E7%B1%BB/" class="post-title-link" itemprop="url">基本数据类型和包装类</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><img src="http://logeekbro.github.io/img/image-20220820092613269.png" alt="image-20220820092613269"></p>
+<p><strong>Integer a&#x3D; 127</strong> <strong>与</strong> <strong>Integer b &#x3D; 127</strong>相等吗</p>
+<p>对于对象引用类型：&#x3D;&#x3D;比较的是对象的内存地址。</p>
+<p>对于基本数据类型：&#x3D;&#x3D;比较的是值。</p>
+<p>如果整型字面量的值在-128到127之间，那么自动装箱时不会new新的Integer对象，而是直接引用常量池中的 </p>
+<p>Integer对象，超过范围 a1&#x3D;&#x3D;b1的结果是false </p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/Spring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/Spring/" class="post-title-link" itemprop="url">Spring</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="Transactional"><a href="#Transactional" class="headerlink" title="@Transactional"></a>@Transactional</h4><p><strong>标注在类上代表这个类的所有公共(public)非静态方法都将启用事务</strong></p>
+<h4 id="Spring-Bean-的作用域"><a href="#Spring-Bean-的作用域" class="headerlink" title="Spring Bean 的作用域"></a>Spring Bean 的作用域</h4><p><strong>singleton、prototype、request、session、globalSession</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/Collection&Map/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/Collection&Map/" class="post-title-link" itemprop="url">Collection&Map</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="ArrayList-和-LinkedList-的区别"><a href="#ArrayList-和-LinkedList-的区别" class="headerlink" title="ArrayList 和 LinkedList 的区别"></a>ArrayList 和 LinkedList 的区别</h2><p><strong>数据结构实现：ArrayList 是动态数组的数据结构实现，而 LinkedList 是双向链表的数据结构实现。</strong> </p>
+<p><strong>随机访问效率：ArrayList 比 LinkedList 在随机访问的时候效率要高，因为 LinkedList 是线性的数据存储方式，所以需要移动指针从前往后依次查找。</strong> </p>
+<p><strong>增加和删除效率：在非首尾的增加和删除操作，LinkedList 要比 ArrayList 效率要高，因为 ArrayList  增删操作要影响数组内的其他数据的下标。</strong> </p>
+<p><strong>综合来说，在需要频繁读取集合中的元素时，更推荐使用 ArrayList，而在插入和删除操作较多时，更推 荐使用 LinkedList。</strong></p>
+<h2 id="ArrayList-和-Vector-的区别"><a href="#ArrayList-和-Vector-的区别" class="headerlink" title="ArrayList 和 Vector 的区别"></a>ArrayList 和 Vector 的区别</h2><p><strong>线程安全：Vector 使用了 Synchronized 来实现线程同步，是线程安全的，而 ArrayList 是非线程安全 的。</strong> </p>
+<p><strong>性能：ArrayList 在性能方面要优于 Vector。</strong> </p>
+<p><strong>扩容：ArrayList 和 Vector 都会根据实际的需要动态的调整容量，只不过在 Vector 扩容每次会增加 1  倍，而 ArrayList 只会增加 50%。</strong></p>
+<h2 id="在-Queue-中-poll-和-remove-的区别"><a href="#在-Queue-中-poll-和-remove-的区别" class="headerlink" title="在 Queue 中 poll() 和 remove()的区别"></a>在 Queue 中 poll() 和 remove()的区别</h2><p><strong>相同点：都是返回第一个元素，并在队列中删除返回的对象。</strong> </p>
+<p><strong>不同点：如果没有元素 poll()会返回 null，而 remove()会直接抛出 NoSuchElementException 异常。</strong></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Go/zinx/%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Go/zinx/%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97/" class="post-title-link" itemprop="url">连接管理模块</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="清理全部连接的作用"><a href="#清理全部连接的作用" class="headerlink" title="清理全部连接的作用"></a>清理全部连接的作用</h3><p>每个连接在操作系统底层都会有一个对应的fd(文件描述符)，如果server退出后连接还没有关闭，该连接就会占用操作系统的io资源(Linux 下 用lsof查看)</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Go/%E5%BE%AA%E7%8E%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Go/%E5%BE%AA%E7%8E%AF/" class="post-title-link" itemprop="url">循环</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h4 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h4><h5 id="Go语言中只有for-循环，基本结构如下"><a href="#Go语言中只有for-循环，基本结构如下" class="headerlink" title="Go语言中只有for 循环，基本结构如下"></a>Go语言中只有for 循环，基本结构如下</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>;i++ &#123;</span><br><span class="line">	<span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>i :&#x3D; 0   初始化语句，在第一次迭代前执行</p>
+<p>i &lt; 10  循环条件，在每次迭代前求值</p>
+<p>i++  后置语句，在每次迭代的结尾执行</p>
+<h5 id="初始化语句和后置语句是可选的。"><a href="#初始化语句和后置语句是可选的。" class="headerlink" title="初始化语句和后置语句是可选的。"></a>初始化语句和后置语句是可选的。</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sum := <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> ; sum &lt; <span class="number">1000</span>; &#123;</span><br><span class="line">	sum *= <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(sum)</span><br></pre></td></tr></table></figure>
+
+<h5 id="for-是-Go-中的-“while”，去掉分号即可"><a href="#for-是-Go-中的-“while”，去掉分号即可" class="headerlink" title="for 是 Go 中的 “while”，去掉分号即可"></a>for 是 Go 中的 “while”，去掉分号即可</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">sum := <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> sum &lt; <span class="number">1000</span> &#123;</span><br><span class="line">sum += sum</span><br><span class="line">&#125;</span><br><span class="line">fmt.Println(sum)</span><br></pre></td></tr></table></figure>
+
+<h5 id="无限循环"><a href="#无限循环" class="headerlink" title="无限循环"></a>无限循环</h5><p>如果省略循环条件，该循环就不会结束，因此无限循环可以写得很简洁。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="Previous page" aria-label="Previous page" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="Next page" aria-label="Next page" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa-solid fa-mustache"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Logeek</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"logeekbro.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="CentOS7部署Nginx注：此文是根据前辈的博客和自己实际动手总结出来的，不喜勿喷 1、准备工作 Nginx的安装依赖于以下三个包，意思就是在安装Nginx之前首先必须安装一下的三个包，注意安装顺序如下： 　　1 SSL功能需要openssl库，直接通过yum安装: #yum install openssl 　　2 gzip模块需要zlib库，直接通过yum安装: #yum install z">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx安装配置">
+<meta property="og:url" content="http://logeekbro.github.io/2023/Nginx/nginx%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Welcome to Logeek&#39;s Blog">
+<meta property="og:description" content="CentOS7部署Nginx注：此文是根据前辈的博客和自己实际动手总结出来的，不喜勿喷 1、准备工作 Nginx的安装依赖于以下三个包，意思就是在安装Nginx之前首先必须安装一下的三个包，注意安装顺序如下： 　　1 SSL功能需要openssl库，直接通过yum安装: #yum install openssl 　　2 gzip模块需要zlib库，直接通过yum安装: #yum install z">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-01-12T16:47:18.221Z">
+<meta property="article:modified_time" content="2023-01-12T16:47:25.352Z">
+<meta property="article:author" content="Logeek">
+<meta property="article:tag" content="博客 blog Blog">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://logeekbro.github.io/2023/Nginx/nginx%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://logeekbro.github.io/2023/Nginx/nginx%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/","path":"2023/Nginx/nginx安装配置/","title":"nginx安装配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>nginx安装配置 | Welcome to Logeek's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Welcome to Logeek's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS7%E9%83%A8%E7%BD%B2Nginx"><span class="nav-number">1.</span> <span class="nav-text">CentOS7部署Nginx</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Logeek"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Logeek</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Logeekbro" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Logeekbro" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2031500185@qq.com" title="E-Mail → mailto:2031500185@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Nginx/nginx%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="nginx安装配置 | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          nginx安装配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-01-13 00:47:18 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:18+08:00">2023-01-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="CentOS7部署Nginx"><a href="#CentOS7部署Nginx" class="headerlink" title="CentOS7部署Nginx"></a><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wangyulong/p/7350189.html">CentOS7部署Nginx</a></h1><p>注：此文是根据前辈的博客和自己实际动手总结出来的，不喜勿喷</p>
+<p>1、准备工作</p>
+<p>Nginx的安装依赖于以下三个包，意思就是在安装Nginx之前首先必须安装一下的三个包，注意安装顺序如下：</p>
+<p>　　1 SSL功能需要openssl库，直接通过yum安装: #yum install openssl</p>
+<p>　　2 gzip模块需要zlib库，直接通过yum安装: #yum install zlib</p>
+<p>　　3 rewrite模块需要pcre库，直接通过yum安装: #yum install pcre</p>
+<p>这个是在这篇博文 <a target="_blank" rel="noopener" href="http://www.cnblogs.com/hanyinglong/p/5102141.html">http://www.cnblogs.com/hanyinglong/p/5102141.html</a> 里面看到的，这三个不知道系统安装的时候是不是直接安装了</p>
+<p>反正我是又重新安装一遍</p>
+<p>2、安装Nginx依赖项和Nginx</p>
+<p>　　1 使用yum安装nginx需要包括Nginx的库，安装Nginx的库</p>
+<p>　　　　#rpm -Uvh <a target="_blank" rel="noopener" href="http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm">http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</a></p>
+<p>　　2 使用下面命令安装nginx</p>
+<p>　　　　#yum install nginx</p>
+<p>　　3 启动Nginx</p>
+<p>　　　　#service nginx start</p>
+<p>这个是在这篇博文 <a target="_blank" rel="noopener" href="http://www.cnblogs.com/Robert-huge/p/6003934.html%E9%87%8C%E9%9D%A2%E7%9C%8B%E5%88%B0%E7%9A%84%EF%BC%8C%E6%88%91%E7%9B%B4%E6%8E%A5%E5%AE%89%E8%A3%85Nginx%E6%8A%A5%E9%94%99%E5%90%8E%E6%90%9C%E5%88%B0%E7%9A%84%EF%BC%8C%E7%94%A8%E6%AD%A4%E5%8D%9A%E4%B8%BB%E7%9A%84%E6%96%B9%E6%B3%95%E5%AE%89%E8%A3%85%E5%90%8E%E6%B2%A1%E6%9C%89%E5%87%BA%E9%94%99">http://www.cnblogs.com/Robert-huge/p/6003934.html里面看到的，我直接安装Nginx报错后搜到的，用此博主的方法安装后没有出错</a></p>
+<p>3、直接浏览器访问localhost就会出现Nginx的欢迎界面表示你安装成功了，否则就是安装失败了</p>
+<p>4、配置Nginx</p>
+<p>CentOS安装Nginx后，安装在了 &#x2F;etc&#x2F;nginx&#x2F;目录下，你可以打开&#x2F;etc&#x2F;nginx&#x2F;conf.d&#x2F;default&#x2F;conf查看里面的配置，包括监听端口，域名和nginx访问的根目录</p>
+<p>参考<a target="_blank" rel="noopener" href="http://www.cnblogs.com/liscookie/p/4032928.html">http://www.cnblogs.com/liscookie/p/4032928.html</a> 这篇博文，我把nginx的访问目录移到了&#x2F;var&#x2F;www目录下</p>
+<p>修改完配置文件后记得重启Nginx的服务 </p>
+<p>#service nginx restart</p>
+<p>然后在&#x2F;var&#x2F;www目录下新建一个index.html，直接用浏览器访问</p>
+<p>localhost&#x2F;index.html 就可以直接按到你index.html文件的内容了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">location /images/ &#123;    </span><br><span class="line"></span><br><span class="line">	root /opt/html/;</span><br><span class="line">    try_files $uri   $uri/  /images/default.gif; </span><br><span class="line">    &#125;</span><br><span class="line">比如 请求 127.0.0.1/images/test.gif 会依次查找：</span><br><span class="line">			1.文件/opt/html/images/test.gif   </span><br><span class="line">			2.文件夹 /opt/html/images/test.gif/下的index文件  </span><br><span class="line">			3. 请求127.0.0.1/images/default.gif4.</span><br><span class="line">其他注意事项1.try-files 如果不写上 $uri/，当直接访问一个目录路径时，并不会去匹配目录下的索引页  即 访问127.0.0.1/images/ 不会去访问  127.0.0.1/images/index.html </span><br></pre></td></tr></table></figure>
+
+<p>location 使用alias别名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /test/ &#123;    </span><br><span class="line">	alias /myfile/;</span><br><span class="line">    &#125;</span><br><span class="line">当访问 /test/1.txt 时会返回 /myfile/1.txt</span><br></pre></td></tr></table></figure>
+
+<p>设置允许跨域访问</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location /test/ &#123;</span><br><span class="line">	add_header Access-Control-Allow-Origin *;</span><br><span class="line">    add_header Access-Control-Allow-Methods *;</span><br><span class="line">    add_header Access-Control-Allow-Headers *;</span><br><span class="line">	alias /myfile/;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/MySQL/%E5%AD%98%E5%9C%A8%E6%97%B6%E4%B8%8D%E6%93%8D%E4%BD%9C%E4%B8%8D%E5%AD%98%E5%9C%A8%E5%88%99%E6%8F%92%E5%85%A5/" rel="prev" title="存在时不操作不存在则插入">
+                  <i class="fa fa-chevron-left"></i> 存在时不操作不存在则插入
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/Nginx/nginx%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E4%BC%98%E5%85%88%E7%BA%A7/" rel="next" title="nginx读取配置文件的优先级">
+                  nginx读取配置文件的优先级 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa-solid fa-mustache"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Logeek</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
