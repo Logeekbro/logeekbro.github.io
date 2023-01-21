@@ -30,6 +30,12 @@
         <content type="html"><![CDATA[<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><h3 id="1、引入依赖"><a href="#1、引入依赖" class="headerlink" title="1、引入依赖"></a>1、引入依赖</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">            <span class="string">&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span></span><br><span class="line">            <span class="string">&lt;artifactId&gt;spring-boot-starter-cache&lt;/artifactId&gt;</span></span><br><span class="line">        <span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure><h3 id="2、配置文件中配置缓存类型为redis"><a href="#2、配置文件中配置缓存类型为redis" class="headerlink" title="2、配置文件中配置缓存类型为redis"></a>2、配置文件中配置缓存类型为redis</h3><figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring.cache.type</span>=<span class="string">redis</span></span><br></pre></td></tr></table></figure><h3 id="3、开启缓存功能"><a href="#3、开启缓存功能" class="headerlink" title="3、开启缓存功能"></a>3、开启缓存功能</h3><p><strong><code>@EnableCaching</code></strong></p>]]></content>
       
       
+      <categories>
+          
+          <category> Redis </category>
+          
+      </categories>
+      
       
     </entry>
     
