@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
@@ -17,17 +17,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"logeekbro.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"logeekbro.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="作用保证一定能读到最新数据，写锁是一个排他锁(互斥锁、独享锁)，读锁是共享锁 不同情况下的表现读 + 读 相当于无锁  读 + 写 需要等待读锁释放才能写  写 + 读 需要等待写锁释放才能读  写 + 写 需要等待写锁释放才能继续写  总结只要有写操作就必须等待">
+    <meta name="description" content="作用 保证一定能读到最新数据，写锁是一个排他锁(互斥锁、独享锁)，读锁是共享锁  不同情况下的表现 读 + 读 相当于无锁  读 + 写 需要等待读锁释放才能写  写 + 读 需要等待写锁释放才能读">
 <meta property="og:type" content="article">
 <meta property="og:title" content="读写锁">
 <meta property="og:url" content="http://logeekbro.github.io/2023/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/index.html">
 <meta property="og:site_name" content="Welcome to Logeek&#39;s Blog">
-<meta property="og:description" content="作用保证一定能读到最新数据，写锁是一个排他锁(互斥锁、独享锁)，读锁是共享锁 不同情况下的表现读 + 读 相当于无锁  读 + 写 需要等待读锁释放才能写  写 + 读 需要等待写锁释放才能读  写 + 写 需要等待写锁释放才能继续写  总结只要有写操作就必须等待">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-01-12T16:47:17.656Z">
-<meta property="article:modified_time" content="2023-01-12T16:47:25.371Z">
+<meta property="og:description" content="作用 保证一定能读到最新数据，写锁是一个排他锁(互斥锁、独享锁)，读锁是共享锁  不同情况下的表现 读 + 读 相当于无锁  读 + 写 需要等待读锁释放才能写  写 + 读 需要等待写锁释放才能读">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-21T13:50:07.108Z">
+<meta property="article:modified_time" content="2023-01-21T13:50:18.367Z">
 <meta property="article:author" content="Logeek">
 <meta property="article:tag" content="博客 blog Blog">
 <meta name="twitter:card" content="summary">
@@ -37,7 +37,7 @@
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://logeekbro.github.io/2023/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/","path":"2023/锁/读写锁/","title":"读写锁"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://logeekbro.github.io/2023/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/","path":"2023/锁/读写锁/","title":"读写锁"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>读写锁 | Welcome to Logeek's Blog</title>
@@ -64,7 +64,10 @@
     <div class="column">
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -78,13 +81,17 @@
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
 
 
 
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li><li class="menu-item menu-item-分类"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
 
 
 
@@ -97,10 +104,10 @@
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
-          Table of Contents
+          文章目录
         </li>
         <li class="sidebar-nav-overview">
-          Overview
+          站点概览
         </li>
       </ul>
 
@@ -122,13 +129,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">29</span>
-          <span class="site-state-item-name">posts</span>
+          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">11</span>
-        <span class="site-state-item-name">categories</span>
+          <a href="/categories/">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
   </nav>
 </div>
@@ -161,7 +169,7 @@
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -189,16 +197,16 @@
       <span class="post-meta-item-icon">
         <i class="far fa-calendar"></i>
       </span>
-      <span class="post-meta-item-text">Posted on</span>
+      <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="Created: 2023-01-13 00:47:17 / Modified: 00:47:25" itemprop="dateCreated datePublished" datetime="2023-01-13T00:47:17+08:00">2023-01-13</time>
+      <time title="创建时间：2023-01-21 21:50:07 / 修改时间：21:50:18" itemprop="dateCreated datePublished" datetime="2023-01-21T21:50:07+08:00">2023-01-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
       </span>
-      <span class="post-meta-item-text">In</span>
+      <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
           <a href="/categories/%E9%94%81/" itemprop="url" rel="index"><span itemprop="name">锁</span></a>
         </span>
@@ -241,11 +249,11 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2023/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/" rel="prev" title="缓存穿透与雪崩">
+                  <i class="fa fa-chevron-left"></i> 缓存穿透与雪崩
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/Docker/docker%E5%90%AF%E5%8A%A8%E6%97%B6%E8%87%AA%E5%8A%A8%E5%90%AF%E5%8A%A8%E6%9F%90%E4%B8%AA%E5%AE%B9%E5%99%A8/" rel="next" title="docker启动时自动启动某个容器">
-                  docker启动时自动启动某个容器 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
@@ -272,14 +280,14 @@
   </span>
   <span class="author" itemprop="copyrightHolder">Logeek</span>
 </div>
-  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <div class="back-to-top" role="button" aria-label="Back to top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
   </div>
