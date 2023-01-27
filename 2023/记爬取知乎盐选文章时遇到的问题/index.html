@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"logeekbro.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记爬取知乎盐选文章时遇到的问题 1.由于有一些文章中有梵文之类的鬼画符，不能直接存入数据库，所以需要先将文章内容编码(参考了网上的教程)再存入，以下是具体的函数（包括执行sql语句的函数） 1 2 3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记爬取知乎盐选文章时遇到的问题">
+<meta property="og:url" content="http://logeekbro.github.io/2023/%E8%AE%B0%E7%88%AC%E5%8F%96%E7%9F%A5%E4%B9%8E%E7%9B%90%E9%80%89%E6%96%87%E7%AB%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Welcome to Logeek&#39;s Blog">
+<meta property="og:description" content="记爬取知乎盐选文章时遇到的问题 1.由于有一些文章中有梵文之类的鬼画符，不能直接存入数据库，所以需要先将文章内容编码(参考了网上的教程)再存入，以下是具体的函数（包括执行sql语句的函数） 1 2 3">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-27T08:27:24.664Z">
+<meta property="article:modified_time" content="2023-01-27T08:29:28.410Z">
+<meta property="article:author" content="Logeek">
+<meta property="article:tag" content="博客 blog Blog">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://logeekbro.github.io/2023/%E8%AE%B0%E7%88%AC%E5%8F%96%E7%9F%A5%E4%B9%8E%E7%9B%90%E9%80%89%E6%96%87%E7%AB%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://logeekbro.github.io/2023/%E8%AE%B0%E7%88%AC%E5%8F%96%E7%9F%A5%E4%B9%8E%E7%9B%90%E9%80%89%E6%96%87%E7%AB%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/","path":"2023/记爬取知乎盐选文章时遇到的问题/","title":"记爬取知乎盐选文章时遇到的问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>记爬取知乎盐选文章时遇到的问题 | Welcome to Logeek's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Welcome to Logeek's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li><li class="menu-item menu-item-分类"><a href="/categories" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E7%88%AC%E5%8F%96%E7%9F%A5%E4%B9%8E%E7%9B%90%E9%80%89%E6%96%87%E7%AB%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">记爬取知乎盐选文章时遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%94%B1%E4%BA%8E%E6%9C%89%E4%B8%80%E4%BA%9B%E6%96%87%E7%AB%A0%E4%B8%AD%E6%9C%89%E6%A2%B5%E6%96%87%E4%B9%8B%E7%B1%BB%E7%9A%84%E9%AC%BC%E7%94%BB%E7%AC%A6%EF%BC%8C%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E5%AD%98%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%8C%E6%89%80%E4%BB%A5%E9%9C%80%E8%A6%81%E5%85%88%E5%B0%86%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E7%BC%96%E7%A0%81-%E5%8F%82%E8%80%83%E4%BA%86%E7%BD%91%E4%B8%8A%E7%9A%84%E6%95%99%E7%A8%8B-%E5%86%8D%E5%AD%98%E5%85%A5%EF%BC%8C%E4%BB%A5%E4%B8%8B%E6%98%AF%E5%85%B7%E4%BD%93%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%88%E5%8C%85%E6%8B%AC%E6%89%A7%E8%A1%8Csql%E8%AF%AD%E5%8F%A5%E7%9A%84%E5%87%BD%E6%95%B0%EF%BC%89"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.由于有一些文章中有梵文之类的鬼画符，不能直接存入数据库，所以需要先将文章内容编码(参考了网上的教程)再存入，以下是具体的函数（包括执行sql语句的函数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E5%85%88%E6%89%8B%E5%8A%A8%E7%99%BB%E5%BD%95%E4%B8%80%E6%AC%A1%E8%B4%A6%E5%8F%B7%EF%BC%88%E6%9C%89%E4%BC%9A%E5%91%98%EF%BC%89%EF%BC%8C%E8%8E%B7%E5%8F%96cookie%E5%90%8E%E4%BF%9D%E5%AD%98%E5%88%B0%E6%96%87%E4%BB%B6%E4%B8%AD%EF%BC%8C%E5%90%8E%E7%BB%AD%E8%AE%BF%E9%97%AE%E5%8F%AA%E9%9C%80%E8%AF%BB%E5%8F%96cookie%E6%96%87%E4%BB%B6%E5%8D%B3%E5%8F%AF"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">2.先手动登录一次账号（有会员），获取cookie后保存到文件中，后续访问只需读取cookie文件即可</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%86%85%E5%AE%B9%E8%BF%87%E6%BB%A4"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">3.内容过滤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-%E7%82%B9%E5%87%BB%E4%B8%A5%E9%80%89%E4%B8%93%E6%A0%8F%E6%98%AF%E4%B8%BA%E4%BA%86%E8%BF%87%E6%BB%A4%E6%8E%89%E4%B8%80%E4%BA%9B%E6%9C%89%E5%A3%B0%E4%B9%A6%EF%BC%8C%E7%94%B5%E5%AD%90%E4%B9%A6%EF%BC%8C%E8%A7%86%E9%A2%91%E4%B9%8B%E7%B1%BB%E7%9A%84%E4%BB%98%E8%B4%B9%E6%88%96%E9%9D%9E%E6%96%87%E7%AB%A0%E5%86%85%E5%AE%B9%E5%86%85%E5%AE%B9"><span class="nav-number">1.0.0.3.1.</span> <span class="nav-text">1.点击严选专栏是为了过滤掉一些有声书，电子书，视频之类的付费或非文章内容内容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-%E5%8F%AA%E8%8E%B7%E5%8F%96Content%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.0.0.3.2.</span> <span class="nav-text">2.只获取Content类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-%E5%B0%86%E8%A7%86%E9%A2%91%E8%BF%87%E6%BB%A4%E6%8E%89"><span class="nav-number">1.0.0.3.3.</span> <span class="nav-text">3.将视频过滤掉</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-url-%E4%B8%AD%E5%B8%A6%E2%80%9Dstar-column%E2%80%9D%E4%B9%9F%E6%98%AF%E6%94%B6%E8%B4%B9%E4%B8%94%E6%97%A0%E6%B3%95%E7%88%AC%E5%8F%96%E7%9A%84"><span class="nav-number">1.0.0.3.4.</span> <span class="nav-text">4. url 中带”star-column”也是收费且无法爬取的</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81selenium%E9%80%9A%E8%BF%87%E6%89%A7%E8%A1%8Cjs%E4%BB%A3%E7%A0%81%E6%9D%A5%E5%AE%9E%E7%8E%B0%E6%BB%9A%E5%8A%A8"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">4、selenium通过执行js代码来实现滚动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E9%80%9A%E8%BF%87%E6%89%A7%E8%A1%8Cjs%E4%BB%A3%E7%A0%81%E6%9D%A5%E7%82%B9%E5%87%BB%E4%B8%80%E4%BA%9B%E6%97%A0%E6%B3%95%E7%9B%B4%E6%8E%A5%E7%94%A8click-%E6%96%B9%E6%B3%95%E7%82%B9%E5%87%BB%E7%9A%84%E5%85%83%E7%B4%A0-%E9%80%9A%E5%B8%B8%E5%92%8C%E4%B8%8A%E9%9D%A2%E7%9A%84%E6%BB%9A%E5%8A%A8%E5%AE%9A%E4%BD%8D%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">5.通过执行js代码来点击一些无法直接用click()方法点击的元素(通常和上面的滚动定位一起使用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-%E5%A2%9E%E5%8A%A0try-except-%E6%9D%A5%E4%BF%9D%E8%AF%81%E7%A8%8B%E5%BA%8F%E7%9A%84%E7%A8%B3%E5%AE%9A%E6%80%A7%EF%BC%9A"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">6.增加try-except 来保证程序的稳定性：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%BD%93%E5%89%8D%E7%88%AC%E5%8F%96%E7%9A%84%E6%96%87%E7%AB%A0%E6%A0%87%E9%A2%98%E3%80%81%E4%BD%9C%E8%80%85%E3%80%81%E4%B8%8B%E6%A0%87%E7%9A%84%E5%86%85%E5%AE%B9%E5%88%B0%E6%96%87%E4%BB%B6%E4%B8%AD%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%E5%BA%94%E6%8A%8A%E5%BD%93%E5%89%8D%E5%B7%B2%E7%BB%8F%E7%88%AC%E5%8F%96%E7%9A%84%E7%AB%A0%E8%8A%82%E6%B8%85%E7%A9%BA%E5%86%8D%E9%87%8D%E6%96%B0%E7%88%AC%E5%8F%96%EF%BC%8C%E9%98%B2%E6%AD%A2%E5%87%BA%E7%8E%B0%E9%87%8D%E5%A4%8D%E8%AE%B0%E5%BD%95"><span class="nav-number">1.0.0.6.1.</span> <span class="nav-text">保存当前爬取的文章标题、作者、下标的内容到文件中，如果出现异常应把当前已经爬取的章节清空再重新爬取，防止出现重复记录</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-%E7%94%B1%E4%BA%8E%E4%B8%8D%E5%90%8C%E5%88%86%E5%8C%BA%E4%B8%8B%E4%BC%9A%E6%9C%89%E5%90%8C%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%EF%BC%8C%E6%89%80%E4%BB%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%AD%E4%BC%9A%E6%9C%89%E9%87%8D%E5%A4%8D%E7%9A%84%E5%86%85%E5%AE%B9-%E6%9C%80%E5%88%9D%E5%B9%B6%E6%B2%A1%E6%9C%89%E8%80%83%E8%99%91%E8%BF%99%E4%B8%80%E7%82%B9-%EF%BC%8C%E5%BA%94%E5%9C%A8%E7%88%AC%E5%8F%96%E5%AE%8C%E6%88%90%E5%90%8E%E7%94%A8sql%E8%AF%AD%E5%8F%A5%E5%8E%BB%E9%99%A4%E9%87%8D%E5%A4%8D%E8%AE%B0%E5%BD%95"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">7.由于不同分区下会有同一篇文章，所以数据库中会有重复的内容(最初并没有考虑这一点)，应在爬取完成后用sql语句去除重复记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-%E5%9C%A8%E7%88%AC%E5%8F%96%E5%89%8D%E6%A3%80%E6%B5%8B%E8%AF%A5%E6%96%87%E7%AB%A0%E6%98%AF%E5%90%A6%E5%B7%B2%E5%AD%98%E5%9C%A8%EF%BC%9A"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">8.在爬取前检测该文章是否已存在：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-%E5%86%99sql%E8%AF%AD%E5%8F%A5%E6%97%B6%E8%A6%81%E7%94%A8-%E2%80%98-%E2%80%99-%E5%BC%95%E8%B5%B7%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%89-%E2%80%98-%E5%88%99%E4%BC%9A%E5%87%BA%E7%8E%B0%E5%BC%82%E5%B8%B8%EF%BC%8C%E5%BA%94%E6%8A%8A%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84-%E2%80%98-%E6%9B%BF%E6%8D%A2%E6%88%90-%E2%80%98%EF%BC%88%E4%B8%AD%E6%96%87%EF%BC%89"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">9.写sql语句时要用 ‘ ’ 引起字符串，如果字符串中有 ‘ 则会出现异常，应把字符串中的  ‘  替换成  ‘（中文）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-%E5%AF%B9%E4%BA%8E%E6%9C%89%E4%BA%9B%E6%AF%94%E8%BE%83%E9%95%BF%E7%9A%84%E7%AB%A0%E8%8A%82%EF%BC%8C%E5%AD%98%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93%E6%97%B6%E4%BC%9A%E8%B6%85%E8%BF%87%E9%BB%98%E8%AE%A4%E7%9A%84max-allowed-packet-x3D-1MB-%E9%9C%80%E8%A6%81%E4%BF%AE%E6%94%B9%E4%B8%80%E4%B8%8B"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">10.对于有些比较长的章节，存入数据库时会超过默认的max_allowed_packet&#x3D;1MB,需要修改一下</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Logeek"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Logeek</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Logeekbro" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Logeekbro" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2031500185@qq.com" title="E-Mail → mailto:2031500185@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/%E8%AE%B0%E7%88%AC%E5%8F%96%E7%9F%A5%E4%B9%8E%E7%9B%90%E9%80%89%E6%96%87%E7%AB%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="记爬取知乎盐选文章时遇到的问题 | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          记爬取知乎盐选文章时遇到的问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-27 16:27:24 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="记爬取知乎盐选文章时遇到的问题"><a href="#记爬取知乎盐选文章时遇到的问题" class="headerlink" title="记爬取知乎盐选文章时遇到的问题"></a>记爬取知乎盐选文章时遇到的问题</h1><h4 id="1-由于有一些文章中有梵文之类的鬼画符，不能直接存入数据库，所以需要先将文章内容编码-参考了网上的教程-再存入，以下是具体的函数（包括执行sql语句的函数）"><a href="#1-由于有一些文章中有梵文之类的鬼画符，不能直接存入数据库，所以需要先将文章内容编码-参考了网上的教程-再存入，以下是具体的函数（包括执行sql语句的函数）" class="headerlink" title="1.由于有一些文章中有梵文之类的鬼画符，不能直接存入数据库，所以需要先将文章内容编码(参考了网上的教程)再存入，以下是具体的函数（包括执行sql语句的函数）"></a>1.由于有一些文章中有梵文之类的鬼画符，不能直接存入数据库，所以需要先将文章内容编码(参考了网上的教程)再存入，以下是具体的函数（包括执行sql语句的函数）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将文章内容转为二进制以便保存到数据库中</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">content_encode</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27; &#x27;</span>.join([<span class="built_in">bin</span>(<span class="built_in">ord</span>(c)).replace(<span class="string">&#x27;0b&#x27;</span>, <span class="string">&#x27;&#x27;</span>) <span class="keyword">for</span> c <span class="keyword">in</span> s])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将从数据库中获取到的内容解码</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">content_decode</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>.join([<span class="built_in">chr</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="built_in">int</span>(b, <span class="number">2</span>) <span class="keyword">for</span> b <span class="keyword">in</span> s.split(<span class="string">&#x27; &#x27;</span>)]])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">run_sql</span>(<span class="params">sql, conn</span>):</span><br><span class="line">    cursor = conn.cursor()</span><br><span class="line">    cursor.execute(sql)</span><br><span class="line">    conn.commit()</span><br><span class="line">    data = cursor.fetchall()</span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-先手动登录一次账号（有会员），获取cookie后保存到文件中，后续访问只需读取cookie文件即可"><a href="#2-先手动登录一次账号（有会员），获取cookie后保存到文件中，后续访问只需读取cookie文件即可" class="headerlink" title="2.先手动登录一次账号（有会员），获取cookie后保存到文件中，后续访问只需读取cookie文件即可"></a>2.先手动登录一次账号（有会员），获取cookie后保存到文件中，后续访问只需读取cookie文件即可</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">driver.get(<span class="string">&quot;https://www.zhihu.com/&quot;</span>)</span><br><span class="line"><span class="comment"># 开始手动登录，使用input暂停程序，登录完成后随便输入一些内容让程序继续运行</span></span><br><span class="line"><span class="built_in">input</span>()</span><br><span class="line"><span class="comment"># 获取cookie</span></span><br><span class="line">cookie = driver.get_cookies()</span><br><span class="line"><span class="comment"># 保存cookie到文件中</span></span><br><span class="line">jsonCookies = json.dumps(cookie)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;cookie.json&#x27;</span>, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    f.write(jsonCookies)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读取cookie</span></span><br><span class="line"><span class="comment"># 需要先访问一次页面</span></span><br><span class="line">driver.get(<span class="string">&quot;https://www.zhihu.com/&quot;</span>)</span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;cookies.json&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    listCookies = json.loads(f.read())</span><br><span class="line"><span class="keyword">for</span> cookie <span class="keyword">in</span> listCookies:</span><br><span class="line">    driver.add_cookie(cookie)</span><br><span class="line">driver.refresh()</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-内容过滤"><a href="#3-内容过滤" class="headerlink" title="3.内容过滤"></a>3.内容过滤</h4><h5 id="1-点击严选专栏是为了过滤掉一些有声书，电子书，视频之类的付费或非文章内容内容"><a href="#1-点击严选专栏是为了过滤掉一些有声书，电子书，视频之类的付费或非文章内容内容" class="headerlink" title="1.点击严选专栏是为了过滤掉一些有声书，电子书，视频之类的付费或非文章内容内容"></a>1.点击严选专栏是为了过滤掉一些有声书，电子书，视频之类的付费或非文章内容内容</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 点击严选专栏</span></span><br><span class="line">driver.find_element_by_xpath(<span class="string">&#x27;//*[@id=&quot;app&quot;]/div/div/div[3]/div/div/div/div[1]&#x27;</span>).click()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-只获取Content类型"><a href="#2-只获取Content类型" class="headerlink" title="2.只获取Content类型"></a>2.只获取Content类型</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取严选专栏文章链接</span></span><br><span class="line"><span class="keyword">if</span> course.get_attribute(<span class="string">&quot;data-za-detail-view-path-module&quot;</span>) == <span class="string">&quot;Content&quot;</span>:</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-将视频过滤掉"><a href="#3-将视频过滤掉" class="headerlink" title="3.将视频过滤掉"></a>3.将视频过滤掉</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">course_url = course.get_attribute(<span class="string">&quot;href&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="string">&quot;video-detail&quot;</span> <span class="keyword">in</span> course_url:</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-url-中带”star-column”也是收费且无法爬取的"><a href="#4-url-中带”star-column”也是收费且无法爬取的" class="headerlink" title="4. url 中带”star-column”也是收费且无法爬取的"></a>4. url 中带”star-column”也是收费且无法爬取的</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if &quot;star-column&quot; in course_url:</span><br><span class="line">    continue</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、selenium通过执行js代码来实现滚动"><a href="#4、selenium通过执行js代码来实现滚动" class="headerlink" title="4、selenium通过执行js代码来实现滚动"></a>4、selenium通过执行js代码来实现滚动</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 滚动到底部</span></span><br><span class="line">js = <span class="string">&quot;window.scrollTo(0,document.body.scrollHeight);&quot;</span></span><br><span class="line"><span class="comment"># 滚动滚动条到最底部以获取该分区下所有文章(加time.sleep(2)才能正常滚动)</span></span><br><span class="line">time.sleep(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    driver.execute_script(js)</span><br><span class="line">    time.sleep(<span class="number">0.5</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 滚动到指定元素可见</span></span><br><span class="line">catalog = driver.find_element_by_class_name(<span class="string">&#x27;CatalogModule-title-9caZz&#x27;</span>)</span><br><span class="line">driver.execute_script(<span class="string">&#x27;window.scrollBy()&#x27;</span>)</span><br><span class="line">driver.execute_script(<span class="string">&quot;arguments[0].scrollIntoView();&quot;</span>, catalog)</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-通过执行js代码来点击一些无法直接用click-方法点击的元素-通常和上面的滚动定位一起使用"><a href="#5-通过执行js代码来点击一些无法直接用click-方法点击的元素-通常和上面的滚动定位一起使用" class="headerlink" title="5.通过执行js代码来点击一些无法直接用click()方法点击的元素(通常和上面的滚动定位一起使用)"></a>5.通过执行js代码来点击一些无法直接用click()方法点击的元素(通常和上面的滚动定位一起使用)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">element = driver.find_element_by_class_name(<span class="string">&#x27;ChapterItem-root-aNY7j&#x27;</span>)</span><br><span class="line">webdriver.ActionChains(driver).move_to_element(element).click(element).perform()</span><br></pre></td></tr></table></figure>
+
+<h4 id="6-增加try-except-来保证程序的稳定性："><a href="#6-增加try-except-来保证程序的稳定性：" class="headerlink" title="6.增加try-except 来保证程序的稳定性："></a>6.增加try-except 来保证程序的稳定性：</h4><h5 id="保存当前爬取的文章标题、作者、下标的内容到文件中，如果出现异常应把当前已经爬取的章节清空再重新爬取，防止出现重复记录"><a href="#保存当前爬取的文章标题、作者、下标的内容到文件中，如果出现异常应把当前已经爬取的章节清空再重新爬取，防止出现重复记录" class="headerlink" title="保存当前爬取的文章标题、作者、下标的内容到文件中，如果出现异常应把当前已经爬取的章节清空再重新爬取，防止出现重复记录"></a>保存当前爬取的文章标题、作者、下标的内容到文件中，如果出现异常应把当前已经爬取的章节清空再重新爬取，防止出现重复记录</h5><h4 id="7-由于不同分区下会有同一篇文章，所以数据库中会有重复的内容-最初并没有考虑这一点-，应在爬取完成后用sql语句去除重复记录"><a href="#7-由于不同分区下会有同一篇文章，所以数据库中会有重复的内容-最初并没有考虑这一点-，应在爬取完成后用sql语句去除重复记录" class="headerlink" title="7.由于不同分区下会有同一篇文章，所以数据库中会有重复的内容(最初并没有考虑这一点)，应在爬取完成后用sql语句去除重复记录"></a>7.由于不同分区下会有同一篇文章，所以数据库中会有重复的内容(最初并没有考虑这一点)，应在爬取完成后用sql语句去除重复记录</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> vip_courses_data <span class="keyword">WHERE</span> page_title <span class="keyword">IN</span> (<span class="keyword">SELECT</span> page_title <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> page_title <span class="keyword">FROM</span> vip_courses_data <span class="keyword">GROUP</span> <span class="keyword">BY</span> page_title <span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(page_title)<span class="operator">&gt;</span><span class="number">1</span>) e)</span><br><span class="line"> <span class="keyword">AND</span> id <span class="keyword">NOT</span> <span class="keyword">IN</span> (<span class="keyword">SELECT</span> id <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> <span class="built_in">MIN</span>(id) <span class="keyword">AS</span> id <span class="keyword">FROM</span> vip_courses_data <span class="keyword">GROUP</span> <span class="keyword">BY</span> page_title <span class="keyword">HAVING</span> <span class="built_in">COUNT</span>(page_title)<span class="operator">&gt;</span><span class="number">1</span>) t);</span><br></pre></td></tr></table></figure>
+
+<p>参考文章:<a target="_blank" rel="noopener" href="https://www.jb51.net/article/157137.htm">MySQL查询重复数据（删除重复数据保留id最小的一条为唯一数据）_Mysql_脚本之家 (jb51.net)</a></p>
+<h4 id="8-在爬取前检测该文章是否已存在："><a href="#8-在爬取前检测该文章是否已存在：" class="headerlink" title="8.在爬取前检测该文章是否已存在："></a>8.在爬取前检测该文章是否已存在：</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sql = <span class="string">&quot;select id from vip_courses_data where page_title=&#x27;&#123;&#125;&#x27; and course_title=&#x27;&#123;&#125;&#x27;&quot;</span>.<span class="built_in">format</span>(page_title, course_title)</span><br><span class="line">res = run_sql(sql, conn)</span><br><span class="line"><span class="keyword">if</span> res != ():</span><br><span class="line">    <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="9-写sql语句时要用-‘-’-引起字符串，如果字符串中有-‘-则会出现异常，应把字符串中的-‘-替换成-‘（中文）"><a href="#9-写sql语句时要用-‘-’-引起字符串，如果字符串中有-‘-则会出现异常，应把字符串中的-‘-替换成-‘（中文）" class="headerlink" title="9.写sql语句时要用 ‘ ’ 引起字符串，如果字符串中有 ‘ 则会出现异常，应把字符串中的  ‘  替换成  ‘（中文）"></a>9.写sql语句时要用 ‘ ’ 引起字符串，如果字符串中有 ‘ 则会出现异常，应把字符串中的  ‘  替换成  ‘（中文）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">page_title = driver.find_element_by_xpath(<span class="string">&#x27;//*[@id=&quot;app&quot;]/div/h1&#x27;</span>).text</span><br><span class="line">page_title = page_title.replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;’&quot;</span>)</span><br><span class="line">page_content = page_content.replace(<span class="string">&quot;&#x27;&quot;</span>, <span class="string">&quot;’&quot;</span>)</span><br><span class="line">page_content = content_encode(page_content)</span><br></pre></td></tr></table></figure>
+
+<h4 id="10-对于有些比较长的章节，存入数据库时会超过默认的max-allowed-packet-x3D-1MB-需要修改一下"><a href="#10-对于有些比较长的章节，存入数据库时会超过默认的max-allowed-packet-x3D-1MB-需要修改一下" class="headerlink" title="10.对于有些比较长的章节，存入数据库时会超过默认的max_allowed_packet&#x3D;1MB,需要修改一下"></a>10.对于有些比较长的章节，存入数据库时会超过默认的max_allowed_packet&#x3D;1MB,需要修改一下</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 用于查看默认的大小，1048576 为1MB</span><br><span class="line">show VARIABLES like &#x27;%max_allowed_packet%&#x27;;</span><br><span class="line"># 修改大小</span><br><span class="line">set global max_allowed_packet = 1048576*16</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/Redis%E5%AE%89%E8%A3%85/" rel="prev" title="Redis安装">
+                  <i class="fa fa-chevron-left"></i> Redis安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/%E8%AE%B0%E5%89%8D%E7%AB%AF%E5%90%8C%E6%97%B6%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/" rel="next" title="记前端同时向后端传多种数据时遇到的坑">
+                  记前端同时向后端传多种数据时遇到的坑 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa-solid fa-mustache"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Logeek</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

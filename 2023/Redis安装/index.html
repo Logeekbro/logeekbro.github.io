@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha256-Z1K5uhUaJXA7Ll0XrZ/0JhX4lAtZFpT6jkKrEDT0drU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"logeekbro.github.io","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.14.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Redis安装 1、将Redis最新稳定版压缩包下载到当前目录 1   wget https:&#x2F;&#x2F;download.redis.io&#x2F;redis-stable.tar.gz   2、解压 1   ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis安装">
+<meta property="og:url" content="http://logeekbro.github.io/2023/Redis%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Welcome to Logeek&#39;s Blog">
+<meta property="og:description" content="Redis安装 1、将Redis最新稳定版压缩包下载到当前目录 1   wget https:&#x2F;&#x2F;download.redis.io&#x2F;redis-stable.tar.gz   2、解压 1   ta">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-27T08:27:24.616Z">
+<meta property="article:modified_time" content="2023-01-27T08:29:28.364Z">
+<meta property="article:author" content="Logeek">
+<meta property="article:tag" content="博客 blog Blog">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://logeekbro.github.io/2023/Redis%E5%AE%89%E8%A3%85/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://logeekbro.github.io/2023/Redis%E5%AE%89%E8%A3%85/","path":"2023/Redis安装/","title":"Redis安装"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis安装 | Welcome to Logeek's Blog</title>
+  
+
+
+
+
+
+
+  <script async defer data-website-id="" src=""></script>
+
+  <script defer data-domain="" src=""></script>
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Welcome to Logeek's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-主页"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a></li><li class="menu-item menu-item-分类"><a href="/categories" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-归档"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">Redis安装</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%B0%86Redis%E6%9C%80%E6%96%B0%E7%A8%B3%E5%AE%9A%E7%89%88%E5%8E%8B%E7%BC%A9%E5%8C%85%E4%B8%8B%E8%BD%BD%E5%88%B0%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95"><span class="nav-number">1.1.</span> <span class="nav-text">1、将Redis最新稳定版压缩包下载到当前目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E8%A7%A3%E5%8E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">2、解压</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3%E3%80%81%E7%A7%BB%E5%8A%A8%E8%A7%A3%E5%8E%8B%E5%90%8E%E7%9A%84Redis%E6%96%87%E4%BB%B6%E5%88%B0-x2F-usr-x2F-local-x2F-redis"><span class="nav-number">1.3.</span> <span class="nav-text">3、移动解压后的Redis文件到 &#x2F;usr&#x2F;local&#x2F;redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4%E3%80%81%E8%BF%9B%E5%85%A5Redis%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95"><span class="nav-number">1.4.</span> <span class="nav-text">4、进入Redis文件目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5%E3%80%81%E7%BC%96%E8%AF%91"><span class="nav-number">1.5.</span> <span class="nav-text">5、编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6%E3%80%81%E5%AE%89%E8%A3%85-%E5%AE%89%E8%A3%85%E5%9C%A8%E6%8C%87%E5%AE%9APREFIX%E7%9B%AE%E5%BD%95%E4%B8%8B"><span class="nav-number">1.6.</span> <span class="nav-text">6、安装(安装在指定PREFIX目录下)</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Logeek"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Logeek</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Logeekbro" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Logeekbro" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2031500185@qq.com" title="E-Mail → mailto:2031500185@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Redis%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis安装 | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis安装
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-01-27 16:27:24 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Redis安装"><a href="#Redis安装" class="headerlink" title="Redis安装"></a>Redis安装</h1><h2 id="1、将Redis最新稳定版压缩包下载到当前目录"><a href="#1、将Redis最新稳定版压缩包下载到当前目录" class="headerlink" title="1、将Redis最新稳定版压缩包下载到当前目录"></a>1、将Redis最新稳定版压缩包下载到当前目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.redis.io/redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="2、解压"><a href="#2、解压" class="headerlink" title="2、解压"></a>2、解压</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf redis-stable.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h2 id="3、移动解压后的Redis文件到-x2F-usr-x2F-local-x2F-redis"><a href="#3、移动解压后的Redis文件到-x2F-usr-x2F-local-x2F-redis" class="headerlink" title="3、移动解压后的Redis文件到 &#x2F;usr&#x2F;local&#x2F;redis"></a>3、移动解压后的Redis文件到 &#x2F;usr&#x2F;local&#x2F;redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mv</span> redis-stable /usr/local/redis</span><br></pre></td></tr></table></figure>
+
+<h2 id="4、进入Redis文件目录"><a href="#4、进入Redis文件目录" class="headerlink" title="4、进入Redis文件目录"></a>4、进入Redis文件目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/redis</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、编译"><a href="#5、编译" class="headerlink" title="5、编译"></a>5、编译</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make</span><br></pre></td></tr></table></figure>
+
+<h2 id="6、安装-安装在指定PREFIX目录下"><a href="#6、安装-安装在指定PREFIX目录下" class="headerlink" title="6、安装(安装在指定PREFIX目录下)"></a>6、安装(安装在指定PREFIX目录下)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make PREFIX=/usr/local/redis install</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/CentOS7%20%E5%9C%A8python3%E4%B8%AD%E4%BD%BF%E7%94%A8Zbar/" rel="prev" title="CentOS7 在python3中使用Zbar">
+                  <i class="fa fa-chevron-left"></i> CentOS7 在python3中使用Zbar
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/%E8%AE%B0%E7%88%AC%E5%8F%96%E7%9F%A5%E4%B9%8E%E7%9B%90%E9%80%89%E6%96%87%E7%AB%A0%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" rel="next" title="记爬取知乎盐选文章时遇到的问题">
+                  记爬取知乎盐选文章时遇到的问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa-solid fa-mustache"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Logeek</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
