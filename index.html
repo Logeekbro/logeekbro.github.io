@@ -124,7 +124,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -164,6 +164,100 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%AE%9A%E4%B9%89%E7%9A%84%E9%80%9A%E7%94%A8%E7%B1%BB%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%AE%9A%E4%B9%89%E7%9A%84%E9%80%9A%E7%94%A8%E7%B1%BB%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">微服务项目中定义的通用类不生效问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-02-03 12:00:32 / 修改时间：12:01:24" itemprop="dateCreated datePublished" datetime="2023-02-03T12:00:32+08:00">2023-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          问题
+在common-web模块中定义了全局的自定义异常处理器@RestControllerAdvice, 但并没有生效
+
+原因
+springboot默认只会扫描主启动类同级包及其子包，所以无法扫描到
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E4%B8%AD%E5%AE%9A%E4%B9%89%E7%9A%84%E9%80%9A%E7%94%A8%E7%B1%BB%E4%B8%8D%E7%94%9F%E6%95%88%E9%97%AE%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/%E8%AE%B0%E5%89%8D%E7%AB%AF%E5%90%8C%E6%97%B6%E5%90%91%E5%90%8E%E7%AB%AF%E4%BC%A0%E5%A4%9A%E7%A7%8D%E6%95%B0%E6%8D%AE%E6%97%B6%E9%81%87%E5%88%B0%E7%9A%84%E5%9D%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -192,9 +286,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-27 16:27:24 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
     </span>
 
   
@@ -285,9 +385,15 @@ article = {
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-27 16:27:24 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
     </span>
 
   
@@ -366,9 +472,15 @@ article = {
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-27 16:27:24 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
     </span>
 
   
@@ -455,9 +567,15 @@ ta
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-27 16:27:24 / 修改时间：16:29:27" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
     </span>
 
   
@@ -536,9 +654,15 @@ pip install zbar
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-27 16:27:24 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
     </span>
 
   
@@ -587,7 +711,7 @@ pip install zbar
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88OpenFeign/">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -605,7 +729,7 @@ pip install zbar
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88OpenFeign/" class="post-title-link" itemprop="url">SpringBoot整合OpenFeign</a>
+          <a href="/2023/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/" class="post-title-link" itemprop="url">读写锁</a>
         </h2>
 
         <div class="post-meta-container">
@@ -615,9 +739,15 @@ pip install zbar
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-27 16:27:22 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:22+08:00">2023-01-27</time>
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -625,11 +755,7 @@ pip install zbar
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
+          <a href="/categories/%E9%94%81/" itemprop="url" rel="index"><span itemprop="name">锁</span></a>
         </span>
     </span>
 
@@ -643,8 +769,210 @@ pip install zbar
     
     
     <div class="post-body" itemprop="articleBody">
-          1、引入依赖
+          作用
+保证一定能读到最新数据，写锁是一个排他锁(互斥锁、独享锁)，读锁是共享锁
 
+不同情况下的表现
+读 + 读
+相当于无锁
+
+读 + 写
+需要等待读锁释放才能写
+
+写 + 读
+需要等待写锁释放才能读
+
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/%E9%94%81/%E8%AF%BB%E5%86%99%E9%94%81/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/" class="post-title-link" itemprop="url">缓存穿透与雪崩</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          缓存穿透
+定义：缓存穿透指的是查询一个一定不存在的数据，会导致一直无法命中缓存，从而每次都直接查询数据库。
+
+解决方法：将空数据也存入缓存，并设置过期时间，防止持续占用内存。
+
+缓存雪崩
+定义：如果大
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E4%B8%8E%E9%9B%AA%E5%B4%A9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Redis/%E6%95%B4%E5%90%88SpringCache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Logeek">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/Redis/%E6%95%B4%E5%90%88SpringCache/" class="post-title-link" itemprop="url">整合SpringCache</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          步骤
+1、引入依赖
 1
 2
 3
@@ -652,11 +980,11 @@ pip install zbar
 
 
 <dependency>
-    <groupId>org.springframework.cloud</groupId>
-    <artifactId>spri
+            <groupId>org.springframework.boot</groupId>
+           </dependency>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88OpenFeign/#more" rel="contents">
+              <a class="btn" href="/2023/Redis/%E6%95%B4%E5%90%88SpringCache/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -687,7 +1015,7 @@ pip install zbar
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88Nacos%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/">
+    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Redis/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -705,7 +1033,7 @@ pip install zbar
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88Nacos%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" class="post-title-link" itemprop="url">SpringBoot整合Nacos配置中心</a>
+          <a href="/2023/Redis/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" class="post-title-link" itemprop="url">分布式锁</a>
         </h2>
 
         <div class="post-meta-container">
@@ -715,9 +1043,15 @@ pip install zbar
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2023-01-27 16:27:22 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:22+08:00">2023-01-27</time>
+      <time title="创建时间：2023-01-27 16:27:24" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:24+08:00">2023-01-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-03 12:01:24" itemprop="dateModified" datetime="2023-02-03T12:01:24+08:00">2023-02-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -725,11 +1059,7 @@ pip install zbar
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
         </span>
     </span>
 
@@ -743,325 +1073,18 @@ pip install zbar
     
     
     <div class="post-body" itemprop="articleBody">
-          1、引入依赖
+          存在的问题
+1、死锁
+说明：
 
-1
-2
-3
-4
+某个客户端获取到锁后代码没执行完机器直接死机，导致锁没有释放，其它客户端也就无法获取到锁，从而造成死锁。
 
+解决办法：
 
-<dependency>
-    <groupId>com.alibaba.cloud</groupId>
-    <artifactId>spring-cloud
+给锁设置过期时间，即使锁没有被释放，也会自动过
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88Nacos%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88Nacos%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0&%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Logeek">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Welcome to Logeek's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88Nacos%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0&%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/" class="post-title-link" itemprop="url">SpringBoot整合Nacos服务发现&注册中心</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-01-27 16:27:22 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:22+08:00">2023-01-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          1、前往 官方github仓库 下载nacos客户端压缩包(推荐zip版本)
-
-2、启动nacos服务器
-
- * Linux
-   
-   1
-   2
-   3
-   
-   
-   unzip n
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E6%95%B4%E5%90%88Nacos%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0&%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Logeek">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Welcome to Logeek's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">SpringBoot微服务项目数据源相关问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-01-27 16:27:22 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:22+08:00">2023-01-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-          ，
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          如果操作数据库的框架在common模块中引入，但某些模块不需要连接数据库(如网关)，可在服务的启动类中加上如下参数来忽略数据库相关配置：
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-
-
-@Enable
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/Java/%E5%BE%AE%E6%9C%8D%E5%8A%A1/SpringBoot%E5%BE%AE%E6%9C%8D%E5%8A%A1%E9%A1%B9%E7%9B%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://logeekbro.github.io/2023/Java/%E8%A7%A3%E5%86%B3SpringBoot%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96%E6%97%B6%E6%9C%89%E5%A4%9A%E4%B8%AA%E5%90%8C%E5%90%8DBean%E7%9A%84%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Logeek">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Welcome to Logeek's Blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Welcome to Logeek's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/Java/%E8%A7%A3%E5%86%B3SpringBoot%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96%E6%97%B6%E6%9C%89%E5%A4%9A%E4%B8%AA%E5%90%8C%E5%90%8DBean%E7%9A%84%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">解决SpringBoot引入依赖时有多个同名Bean的问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-01-27 16:27:22 / 修改时间：16:29:28" itemprop="dateCreated datePublished" datetime="2023-01-27T16:27:22+08:00">2023-01-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          首先定义一个配置类，在返回自己需要的那个Bean时加上@Primary注解即可
-
-1
-2
-3
-4
-5
-6
-7
-8
-9
-
-
-@Configuration
-public class IpUtilConfi
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/Java/%E8%A7%A3%E5%86%B3SpringBoot%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96%E6%97%B6%E6%9C%89%E5%A4%9A%E4%B8%AA%E5%90%8C%E5%90%8DBean%E7%9A%84%E9%97%AE%E9%A2%98/#more" rel="contents">
+              <a class="btn" href="/2023/Redis/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
